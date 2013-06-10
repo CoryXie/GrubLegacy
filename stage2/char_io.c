@@ -87,7 +87,20 @@ int max_lines = 24;
 int count_lines = -1;
 int use_pager = 1;
 #endif
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现打印错误号功能。输出errnum值已经对应的描述信息字符串err_list[errnum]。
+*/
 void
 print_error (void)
 {
@@ -99,7 +112,21 @@ print_error (void)
     printf ("Error %u\n", errnum);
 #endif /* STAGE1_5 */
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现将输入参数buf转换为ASCII格式字符串并返回指向该字符串的指针功能。其中
+* 参数c为格式控制符号。
+*/
 char *
 convert_to_ascii (char *buf, int c,...)
 {
@@ -141,7 +168,20 @@ convert_to_ascii (char *buf, int c,...)
 
   return ptr;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现输出以0结尾的字符串功能。
+*/
 void
 grub_putstr (const char *str)
 {
@@ -149,6 +189,20 @@ grub_putstr (const char *str)
     grub_putchar (*str++);
 }
 
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现格式化输出功能。
+*/
 void
 grub_printf (const char *format,...)
 {
@@ -186,7 +240,20 @@ grub_printf (const char *format,...)
 	  }
     }
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现格式化输出到参数buffer中的功能。
+*/
 #ifndef STAGE1_5
 int
 grub_sprintf (char *buffer, const char *format, ...)
@@ -232,7 +299,20 @@ grub_sprintf (char *buffer, const char *format, ...)
   return bp - buffer;
 }
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现分页初始化的功能。清屏幕之后打印一个GRUB版本的字符串消息。
+*/
 void
 init_page (void)
 {
@@ -245,6 +325,20 @@ init_page (void)
 /* The number of the history entries.  */
 static int num_history = 0;
 
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现获取历史命令项目的功能。参数no指定历史命令编号。
+*/
 /* Get the NOth history. If NO is less than zero or greater than or
    equal to NUM_HISTORY, return NULL. Otherwise return a valid string.  */
 static char *
@@ -255,7 +349,21 @@ get_history (int no)
 
   return (char *) HISTORY_BUF + MAX_CMDLINE * no;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现添加一条历史命令项目的功能。参数cmdline为新命令字符串；参数no指定历
+* 史命令编号。
+*/
 /* Add CMDLINE to the history buffer.  */
 static void
 add_history (const char *cmdline, int no)
@@ -268,6 +376,22 @@ add_history (const char *cmdline, int no)
     num_history++;
 }
 
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现获取实际的命令的功能。参数prompt为输出提示；参数cmdline为新命令字符
+* 串；参数maxlen为命令最大长度；参数echo_char为指示是否回显字符；参数readline为
+* 读取行标志。
+*/
 static int
 real_get_cmdline (char *prompt, char *cmdline, int maxlen,
 		  int echo_char, int readline)
@@ -772,7 +896,22 @@ real_get_cmdline (char *prompt, char *cmdline, int maxlen,
 
   return 0;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现获取命令的功能。参数prompt为输出提示；参数cmdline为新命令字符
+* 串；参数maxlen为命令最大长度；参数echo_char为指示是否回显字符；参数readline为
+* 读取行标志。
+*/
 /* Don't use this with a MAXLEN greater than 1600 or so!  The problem
    is that GET_CMDLINE depends on the everything fitting on the screen
    at once.  So, the whole screen is about 2000 characters, minus the
@@ -843,6 +982,21 @@ get_cmdline (char *prompt, char *cmdline, int maxlen,
   return ret;
 }
 
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现从字符串转换为整数的功能。
+*/
+
 int
 safe_parse_maxint (char **str_ptr, int *myint_ptr)
 {
@@ -897,6 +1051,20 @@ safe_parse_maxint (char **str_ptr, int *myint_ptr)
   return 1;
 }
 #endif /* STAGE1_5 */
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现将字母转换为小写字母的功能。
+*/
 
 #if !defined(STAGE1_5) || defined(FSYS_FAT)
 int
@@ -908,6 +1076,20 @@ grub_tolower (int c)
   return c;
 }
 #endif /* ! STAGE1_5 || FSYS_FAT */
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现获判断字符c是否为空字符(空格，制表符，回车，换行)的功能。
+*/
 
 int
 grub_isspace (int c)
@@ -925,6 +1107,20 @@ grub_isspace (int c)
 
   return 0;
 }
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现简单的内存比较(memcmp)的功能。
+*/
 
 #if !defined(STAGE1_5) || defined(FSYS_ISO9660)
 int
@@ -944,6 +1140,20 @@ grub_memcmp (const char *s1, const char *s2, int n)
   return 0;
 }
 #endif /* ! STAGE1_5 || FSYS_ISO9660 */
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现简单的字符串拼接(strncat)的功能。
+*/
 
 #ifndef STAGE1_5
 int
@@ -965,6 +1175,20 @@ grub_strncat (char *s1, const char *s2, int n)
   return 1;
 }
 #endif /* ! STAGE1_5 */
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现简单的字符串比较(strcmp)的功能。
+*/
 
 /* XXX: This below is an evil hack. Certainly, we should change the
    strategy to determine what should be defined and what shouldn't be
@@ -989,6 +1213,20 @@ grub_strcmp (const char *s1, const char *s2)
   return 0;
 }
 #endif /* ! STAGE1_5 || FSYS_VSTAFS */
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现获取用户按键输入的功能。
+*/
 
 #ifndef STAGE1_5
 /* Wait for a keypress and return its code.  */
@@ -997,7 +1235,20 @@ getkey (void)
 {
   return current_term->getkey ();
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现检查按键代码可用的功能。
+*/
 /* Check if a key code is available.  */
 int
 checkkey (void)
@@ -1005,6 +1256,20 @@ checkkey (void)
   return current_term->checkkey ();
 }
 #endif /* ! STAGE1_5 */
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现输出字符的功能。
+*/
 
 /* Display an ASCII character.  */
 void
@@ -1072,6 +1337,20 @@ grub_putchar (int c)
   
 #endif /* ! STAGE1_5 */
 }
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现光标定位到x，y位置的功能。
+*/
 
 #ifndef STAGE1_5
 void
@@ -1079,13 +1358,40 @@ gotoxy (int x, int y)
 {
   current_term->gotoxy (x, y);
 }
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现返回当前x,y位置的功能。
+*/
 
 int
 getxy (void)
 {
   return current_term->getxy ();
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现清屏的功能。
+*/
 void
 cls (void)
 {
@@ -1095,7 +1401,20 @@ cls (void)
   else
     current_term->cls ();
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现设置光标的功能。
+*/
 int
 setcursor (int on)
 {
@@ -1105,6 +1424,21 @@ setcursor (int on)
   return 1;
 }
 #endif /* ! STAGE1_5 */
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现获取字符串子字符串的功能。返回0表示s1和S2完全匹配；返回-1表示s1是s2
+* 的子字符串；返回1表示s1不是s2的子字符串。
+*/
 
 int
 substring (const char *s1, const char *s2)
@@ -1124,7 +1458,20 @@ substring (const char *s1, const char *s2)
   /* S1 isn't a substring. */
   return 1;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现将字符串最末尾设置为0的功能。
+*/
 #ifndef STAGE1_5
 /* Terminate the string STR with NUL.  */
 int
@@ -1139,7 +1486,20 @@ nul_terminate (char *str)
   *str = 0;
   return ch;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现strstr(查找完全匹配的子字符串)的功能。
+*/
 char *
 grub_strstr (const char *s1, const char *s2)
 {
@@ -1161,7 +1521,20 @@ grub_strstr (const char *s1, const char *s2)
 
   return 0;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现strlen(字符串长度)的功能。
+*/
 int
 grub_strlen (const char *str)
 {
@@ -1173,7 +1546,20 @@ grub_strlen (const char *str)
   return len;
 }
 #endif /* ! STAGE1_5 */
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现内存检查的功能。
+*/
 int
 memcheck (int addr, int len)
 {
@@ -1216,7 +1602,20 @@ memcheck (int addr, int len)
 
   return ! errnum;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现memmove(内存拷贝)的功能。
+*/
 void *
 grub_memmove (void *to, const void *from, int len)
 {
@@ -1252,7 +1651,20 @@ grub_memmove (void *to, const void *from, int len)
 
    return errnum ? NULL : to;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现memset(内存设置值)的功能。
+*/
 void *
 grub_memset (void *start, int c, int len)
 {
@@ -1266,7 +1678,20 @@ grub_memset (void *start, int c, int len)
 
   return errnum ? NULL : start;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现strcpy(字符串拷贝)的功能。
+*/
 #ifndef STAGE1_5
 char *
 grub_strcpy (char *dest, const char *src)

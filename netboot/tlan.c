@@ -1484,7 +1484,7 @@ inline u32 TLan_HashFunc( u8 *a )
 
 #endif /* I_LIKE_A_FAST_HASH_FUNCTION */
 #endif
-/*******************************************************************************
+/**
  *
  *  Linux ThunderLAN Driver
  *
@@ -1644,7 +1644,7 @@ inline u32 TLan_HashFunc( u8 *a )
  *
  * 	v1.14a Jan 6, 2001   - Minor adjustments (spinlocks, etc.)
  *
- *******************************************************************************/
+ */
 
                                                                                 
 #include <linux/module.h>

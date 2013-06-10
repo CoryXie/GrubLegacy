@@ -59,7 +59,20 @@ static struct divisor divisor_tab[] =
     { 57600,  0x0002 },
     { 115200, 0x0001 }
   };
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现读端口的功能。参数port指定要读的端口地址；返回端口读入的值。
+*/
 /* Read a byte from a port.  */
 static inline unsigned char
 inb (unsigned short port)
@@ -71,7 +84,20 @@ inb (unsigned short port)
   
   return value;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现写端口的功能。参数port指定要写的端口地址；参数value指定要写入的值。
+*/
 /* Write a byte to a port.  */
 static inline void
 outb (unsigned short port, unsigned char value)
@@ -79,7 +105,20 @@ outb (unsigned short port, unsigned char value)
   asm volatile ("outb	%b0, %w1" : : "a" (value), "Nd" (port));
   asm volatile ("outb	%%al, $0x80" : : );
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现获取串口输入值的功能。返回串口的输入值；或者当串口无输入时返回-1.
+*/
 /* Fetch a key.  */
 int
 serial_hw_fetch (void)
@@ -89,7 +128,20 @@ serial_hw_fetch (void)
 
   return -1;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现写字符到串口的功能。参数c指定要写入的值。
+*/
 /* Put a chararacter.  */
 void
 serial_hw_put (int c)
@@ -106,13 +158,52 @@ serial_hw_put (int c)
 
   outb (serial_hw_port + UART_TX, c);
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现串口延迟的功能。
+*/
 void
 serial_hw_delay (void)
 {
   outb (0x80, 0);
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现获取第unit个串口的端口地址的功能。参数unit指定要获取的串行端口。
+*
+* When power is applied to the computer, the BIOS Data Area is created at 
+* memory location 0040:0000h with a typical size of 255 bytes.
+*
+* Offset Hex	Offset Dec	BIOS Service	Field Size	Function
+* 00h	        0	        Int 14h	        2 bytes	    Base for serial port 1 
+* 02h	        2	        Int 14h	        2 bytes	    Base for serial port 2 
+* 04h	        4	        Int 14h	        2 bytes	    Base for serial port 3 
+* 06h	        6	        Int 14h	        2 bytes	    Base for serial port 4 
+* 08h	        8	        Int 17h	        2 bytes	    Base for parallel port 1 
+* 0Ah	        10	        Int 17h	        2 bytes	    Base for parallel port 2 
+* 0Ch	        12	        Int 17h	        2 bytes	    Base for parallel port 3 
+* 0Eh	        14	        POST	        2 bytes	    Base for parallel port 4 
+*/
 /* Return the port number for the UNITth serial device.  */
 unsigned short
 serial_hw_get_port (int unit)
@@ -122,7 +213,21 @@ serial_hw_get_port (int unit)
   
   return addr[unit];
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现串口初始化的功能。参数port为指定要初始化的端口；参数speed，word_len，
+* parity，以及stop_bit_len为要初始化的串口参数。返回0表示失败；返回1表示成功。
+*/
 /* Initialize a serial device. PORT is the port number for a serial device.
    SPEED is a DTE-DTE speed which must be one of these: 2400, 4800, 9600,
    19200, 38400, 57600 and 115200. WORD_LEN is the word length to be used
@@ -189,7 +294,20 @@ serial_hw_init (unsigned short port, unsigned int speed,
 }
 #endif /* ! GRUB_UTIL */
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现转换键值序列的功能。
+*/
 /* Generic definitions.  */
 
 static void
@@ -261,7 +379,20 @@ serial_translate_key_sequence (void)
 	  }
     }
 }
-    
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现读入输入字符串键值序列的功能。返回有效输入字符个数。
+*/
 static
 int fill_input_buf (int nowait)
 {
@@ -289,7 +420,20 @@ int fill_input_buf (int nowait)
 	  
   return npending;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现获取串口输入键值的功能。
+*/
 /* The serial version of getkey.  */
 int
 serial_getkey (void)
@@ -305,7 +449,20 @@ serial_getkey (void)
   
   return c;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现检查串口输入键值的功能。返回-1表示失败；或者第一个键值。
+*/
 /* The serial version of checkkey.  */
 int
 serial_checkkey (void)
@@ -315,7 +472,20 @@ serial_checkkey (void)
 
   return -1;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现串口输出字符的功能。
+*/
 /* The serial version of grub_putchar.  */
 void
 serial_putchar (int c)
@@ -392,13 +562,39 @@ serial_putchar (int c)
   
   serial_hw_put (c);
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现获取串口控制台当前位置的功能。
+*/
 int
 serial_getxy (void)
 {
   return (serial_x << 8) | serial_y;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现设置串口控制台到指定x,y位置的功能。
+*/
 void
 serial_gotoxy (int x, int y)
 {
@@ -409,7 +605,20 @@ serial_gotoxy (int x, int y)
   serial_x = x;
   serial_y = y;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现清屏串口控制台的功能。
+*/
 void
 serial_cls (void)
 {
@@ -419,7 +628,20 @@ serial_cls (void)
   
   serial_x = serial_y = 0;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现设置串口控制台颜色状态的功能。
+*/
 void
 serial_setcolorstate (color_state state)
 {

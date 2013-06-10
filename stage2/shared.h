@@ -820,7 +820,31 @@ void stop_floppy (void);
 #define BUILTIN_SCRIPT		0x8	/* Run in the script.  */
 #define BUILTIN_NO_ECHO		0x10	/* Don't print command on booting. */
 #define BUILTIN_HELP_LIST	0x20	/* Show help in listing.  */
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 每一条命令都是由定义于【grub-0.97/stage2/shared.h】中的struct builtin来定义的。
+*
+* struct builtin其中每一项的意义如下：
+*
+* -Name为命令的名字，也是用于比较的关键字
+* -Func为命令的执行函数，每个命令都对应一个实现
+* -Flags为命令的属性标志
+* -short_doc和long_doc分别为这个命令的简单描述和详细介绍，用于在help命令时显示
+* 对某个命令的描述。
+*
+* 所有的命令被放置到【grub-0.97/stage2/builtins.c】中一个全局的数组struct 
+* builtin *builtin_table[]中。
+*/
 /* The table for a builtin.  */
 struct builtin
 {

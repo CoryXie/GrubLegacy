@@ -19,16 +19,75 @@
  */
 
 #include <stage1.h>
-	
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê5ÔÂ3ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+*
+* ÎÒÃÇÏÈ¸ø³öGRUB 0.97Æô¶¯Á÷³ÌµÄ×ÜÌå½éÉÜ£¬ÏÂÎÄ»áÉîÈëÔ´´úÂë¶ÔÆäÏêÏ¸½éÉÜ¡£
+*
+* 1£©GRUB 0.97¾ßÓÐÁ½¸öÖ÷ÒªÆô¶¯ÔËÐÐ½×¶Î£¬·Ö±ðÃüÃûÎªStage1ºÍStage2£»
+*
+* 2£©GRUB 0.97µÄStage1ÊÇ°²×°ÔÚÆô¶¯ÉÈÇøµÄ£¬´óÐ¡Ö»ÓÐÒ»¸öÉÈÇø£¬¼´512×Ö½Ú£»Ò»°ã¶øÑÔ
+* Stage1°²×°ÔÚÉÈÇøºÅ0£¨LBAÄ£Ê½£©£»
+*
+* 3£©GRUB 0.97µÄStage2°´ÕÕ°²×°·½Ê½¿ÉÒÔ·ÖÎªÓÐStage1.5ºÍÃ»ÓÐStage1.5 Á½ÖÖ¡£²»ÂÛÓÐ
+* Ã»ÓÐStage1.5£¬Stage2¶¼ÊÇ´Ó¡¾grub-0.97/stage2/start.S¡¿¿ªÊ¼µÄ£¬²¢ÇÒÕâ¶Î´úÂë´ó
+* Ð¡Ò²ÊÇ512×Ö½Ú£¬ÇÒÒ»°ãÊÇ°²×°ÔÚÉÈÇøºÅ1£¨LBAÄ£Ê½£©£»
+*
+* 4£©GRUB 0.97µÄStage1´úÂëÎª¡¾grub-0.97/stage1/stage1.S¡¿£¬¸ºÔð¼ÓÔØStage2µÄµÚÒ»
+* ¶Î´úÂë£¬¼´¡¾grub-0.97/stage2/start.S¡¿¶ÔÓ¦´úÂë£»
+*
+* 5£©GRUB 0.97µÄStage2µÄ¡¾grub-0.97/stage2/start.S¡¿ÊÇÓÐStage1.5ºÍÃ»ÓÐStage1.5
+* µÄ·ÖË®Áë£»Èç¹ûÃ»ÓÐStage1.5£¬Ôò»áÖ±½Ó´ÓÉÈÇøºÅ2£¨LBAÄ£Ê½£©¿ªÊ¼¼ÓÔØÁ¬ÐøµÄÉÈÇø£¨
+* ´óÐ¡ÎªSTAGE2_SIZE£©¡£Èç¹ûÓÐ£¬Ôò»áÏÈ¼ÓÔØStage1.5£¬½ø¶øÓÉStage1.5À´´ÓÎÄ¼þÏµÍ³
+* ¼ÓÔØStage2µÄÕæÊµ´úÂë¡£
+*/	
 /*
  *  defines for the code go here
  */
-
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê5ÔÂ3ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+*
+* ABSÊÇÔÚ¡¾grub-0.97/stage1/stage1.S¡¿¿ªÊ¼´¦¶¨ÒåµÄÒ»¸öºê£¬¸Ãºê½«Ò»¸ö±êºÅµÄµØÖ·
+* Óë_start±êºÅÏà¼õ£¬µÃµ½¸Ã±êºÅÔÚ´úÂëÖÐµÄÏà¶ÔÆ«ÒÆµØÖ·£¬ÔÙ¼ÓÉÏ0x7c00¼´µÃµ½CS=0µÄ
+* Çé¿öÏÂµÄ¸Ã±êºÅµÄ¾ø¶ÔµØÖ·£¨LJMPÖ®ºó±»ÖÃÓÚIPÖÐ£©¡£
+*/
 	/* Absolute addresses
 	   This makes the assembler generate the address without support
 	   from the linker. (ELF can't relocate 16-bit addresses!) */
 #define ABS(x) (x-_start+0x7c00)
-
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê5ÔÂ3ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+*
+* ´òÓ¡ÏûÏ¢ÊÇÍ¨¹ýµ÷ÓÃMSG()ºêÀ´ÊµÏÖµÄ¡£Êµ¼ÊÊÇÏÈ½«Ò»ÌõÏûÏ¢µÄ¾ø¶ÔµØÖ··Åµ½SI¼Ä´æÆ÷ÖÐ£¬
+* È»ºóÊ¹ÓÃcallµ÷ÓÃmessageº¯ÊýÀ´ÊµÏÖÊä³öµÄ¡£
+*/
 	/* Print message string */
 #define MSG(x)	movw $ABS(x), %si; call message
 
@@ -36,7 +95,39 @@
 #define	MOV_MEM_TO_AL(x)	.byte 0xa0;  .word x
 	
 	.file	"stage1.S"
-
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê5ÔÂ3ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+*
+* GRUB 0.97 Stage1ÔËÐÐÁ÷³Ì
+*
+* µÚ1²½£¬X86 CPUÆô¶¯Ê±£¬CS=0xFFFF£¬IP=0£¬°´ÕÕÊµÄ£Ê½¹¤×÷£¬´ÓµØÖ·0xFFFF0´¦È¡µ½µÚ
+* Ò»ÌõÖ¸Áî£»BIOS ROMµÄµÚÒ»ÌõÖ¸Áî¾ÍÊÇ·ÅÔÚÕâÀïµÄ£¬Òò´Ë¿ªÊ¼ÁËBIOSµÄÔËÐÐ¡£
+*
+* µÚ2²½£¬BIOSÔËÐÐ¹ý³ÌÖÐ£¬³ýÁË×ö»ù±¾µÄÓ²¼þ¼ì²âºÍÓ²¼þ³õÊ¼»¯Ö®Íâ£¬»¹ÓÐÒ»¸ö¹Ø¼üµÄ
+* µØ·½ÊÇÒªÉèÖÃÊµÄ£Ê½ÏÂµÄÖÐ¶ËÏòÁ¿±í¡¾Interrupt Vector Table (IVT)¡¿£¬Î»ÓÚ0µØÖ·
+* ´¦£¬²¢°²×°¶ÔÓ¦ÖÐ¶ÏºÅµÄÖÐ¶Ï´¦Àí³ÌÐò(ISR)¡£BIOS½Ó×Å»á¼ì²âÏµÍ³µÄÏÖÓÐÆô¶¯Éè±¸£¨
+* ÓÃ»§¿ÉÉèÖÃ¸÷¸öÆô¶¯Éè±¸µÄÏà¶ÔË³Ðò£©£¬ÒÀ´Îµ÷ÓÃINT 0x19À´¶ÁÈ¡ÆäµÚÒ»¸öÉÈÇø£¬²¢
+* ¼ì²âÆäÆô¶¯±ê¼Ç¡¾×îÄ©Î²2¸ö×Ö½Ú¡¿ÊÇ·ñÕýÈ·¡£ Èç¹ûÆô¶¯±ê¼ÇÕýÈ·£¬¾Í»á°Ñ¸ÃÆô¶¯ÉÈÇø
+* ¼ÓÔØµ½ÄÚ´æµØÖ·0x07C00´¦£¬²¢ÇÒÌø×ªµ½0x07C00´¦½Ó×ÅÖ´ÐÐ¡£Òò´Ë£¬ÔÚ´ÓÊµÄ£Ê½ÇÐ»»µ½
+* ±£»¤Ä£Ê½Ö®Ç°£¬Êµ¼ÊÉÏ¶¼»¹ÊÇÔÚBIOSµÄÉÏÏÂÎÄÖÐÔËÐÐ£¬Òò´Ë¾Í¿ÉÒÔ×öBIOSÌá¹©µÄÖÐ¶Ïµ÷
+* ÓÃ£¬ËùÊ¹ÓÃµÄÖÐ¶Ï·þÎñ³ÌÐòÒ²¾ÍÊÇÇ°ÃæÔÚÖÐ¶ÏÏòÁ¿±íÖÐ°²×°µÄISR¡£
+*
+* µÚ3²½£¬BIOS¼ÓÔØÆô¶¯ÉÈÇø²¢Ìø×ªµ½0x07C00´¦ºó£¬¾Í¿ªÊ¼ÁËÕæÕýµÄBootloaderµÄÖ´ÐÐ£¬
+* Õâ¾ÍÊÇÎÒÃÇÕâÀïÒª·ÖÎöµÄGRUB 0.97µÄµÚÒ»¶ÎÕæÕý±»CPUÖ´ÐÐµÄ´úÂë¡£Õâ¶Î´úÂëÎ»ÓÚ
+* ¡¾grub-0.97/stage1/stage1.S¡¿¡£BIOSÌø×ªµ½0x07C00ÊÇÍ¨¹ýJMPÊµÏÖµÄ (CS:IP 
+* 0:0x7C00)£¬Òò´Ë£¬µ±ÔÚstage1.SÖÐ¿ªÊ¼ÔËÐÐÊ±µÄ´úÂë¶Î¼Ä´æÆ÷ºÍÖ¸ÁîÖ¸Õë¼Ä´æ·Ö±ðÊÇ
+* CS=0£¬IP=0x7C00¡£ÌØ±ðÐèÒª×¢ÒâµÄÊÇ£¬Ä¿Ç°CPU»¹´¦ÓÚ16Î»ÊµÄ£Ê½£¬Òò´ËÐèÒªÃ÷È·¸æ
+* Öªgas»ã±àÆ÷Éú³É16Î»X86Ö¸Áî£¬·ñÔòÎÞ·¨ÕýÈ·ÔËÐÐ¡£
+*/
 	.text
 
 	/* Tell GAS to generate 16-bit instructions so that this code works
@@ -47,6 +138,24 @@
 	/*
 	 * _start is loaded at 0x7c00 and is jumped to with CS:IP 0:0x7c00
 	 */
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê5ÔÂ3ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+*
+* GRUB 0.97 Stage1ÔËÐÐÁ÷³Ì
+*
+* µÚ4²½£¬ÓÉÓÚÎªÁË¼æÈÝFAT/HPFS´ÅÅÌÎÄ¼þÏµÍ³¸ñÊ½£¬ÒªÇóÔÚÆô¶¯ÉÈÇøµÄµÚ4×Ö½Ú¿ªÊ¼´¦ÓÐ
+* Ò»¸öËùÎ½µÄ"BIOS²ÎÊý¿é"£¬Òò´ËÎÒÃÇµÄ´úÂë±ØÐëÔ½¹ýÕâÒ»¸ö²ÎÊý¿é£¬´Ó¶øµÚÒ»ÌõÖ¸Áî¾Í
+* ÊÇ×öÒ»¸öÌø×ª£¬Ìø×ªµ½½ô½Ó×Å²ÎÊý¿éµÄµØ·½¿ªÊ¼ÔËÐÐ¡£
+*/
 
 	/*
 	 * Beginning of the sector is compatible with the FAT/HPFS BIOS
@@ -102,10 +211,46 @@ stage2_segment:
 	.word	0x800
 
 after_BPB:
-
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê5ÔÂ3ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+*
+* GRUB 0.97 Stage1ÔËÐÐÁ÷³Ì
+*
+* µÚ5²½£¬½ûÖ¹ÖÐ¶Ï²úÉú£¬ÒòÎª½ô½Ó×ÅµÄ´úÂë»á³¢ÊÔ¸üÕýÒ»Ð©BIOSµÄbugÒÔ¼°ÉèÖÃ¶ÑÕ»Ö¸Õë£¬
+* ÕâÐ©²Ù×÷×îºÃÊÇÔÚÔ­×Ó×´Ì¬½øÐÐ£¨¼´²»±»ÖÐ¶Ï¸ÉÈÅµÄÇé¿öÏÂ£©¡£
+*/
 /* general setup */
 	cli		/* we're not safe here! */
-
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê5ÔÂ3ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+*
+* GRUB 0.97 Stage1ÔËÐÐÁ÷³Ì
+*
+* µÚ6²½£¬¼ì²âÆô¶¯Éè±¸£¨Éè±¸ºÅÓÉBIOSÔÚÌø×ªÇ°±£´æÔÚDL¼Ä´æÆ÷ÖÐ£©£¬µ«ÊÇÓÐÐ©BIOS´í
+* ÎóµØ´«µÝÁËÆô¶¯Éè±¸ºÅ£¬Òò´ËÕâÀïÒª³¢ÊÔÐÞÕý¡£×¢ÒâÕâÀïËÆºõÊµ¼Ê´úÂëºÍ×¢ÊÍÓÐËùÍÑ½Ú£¬
+* ÒòÎªÕâÀïÊÇÒ»¸öÖ±½ÓµÄÌø×ªÖ¸Áî£¬×¢ÊÍÖÐËùËµµÄ²âÊÔDLÊÇ·ñÕýÈ·ÉèÖÃÑÚÂëµÄ²Ù×÷ÊÇ²»ÄÜ
+* ±»Ö´ÐÐµÄ¡£¿ÉÄÜµÄÔ­ÒòÊÇ£¬´ó²¿·ÖµÄBIOS»¹ÊÇ¿ÉÒÔÕýÈ·´«µÝÆô¶¯ÉÈÇøµÄ£¬Òò´Ë´ó²¿·ÖÇé
+* ¿öÕâ¶Î´úÂë²»ÐèÒªÖ´ÐÐ¡£Èç¹ûÕæµÄÓöµ½ÕâÑùµÄBIOS£¬Ó¦¸Ã»¹ÊÇÒª×¢ÊÍµôµÚÒ»¸ö"jmp 1f"
+* Ö¸Áî¡£
+*/
 	/*
 	 * This is a workaround for buggy BIOSes which don't pass boot
 	 * drive correctly. If GRUB is installed into a HDD, check if
@@ -120,13 +265,52 @@ boot_drive_check:
 	jnz	1f
 	movb	$0x80, %dl
 1:	
-
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê5ÔÂ3ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+*
+* GRUB 0.97 Stage1ÔËÐÐÁ÷³Ì
+*
+* µÚ7²½£¬ÓÉÓÚÓÐÐ©BIOSÌø×ªµ½0x07C00µÄ¶¯×÷ÊÇÊ¹ÓÃJMP 07C0:0000µÄ·½Ê½ÊµÏÖµÄ£¬¶ø²»ÊÇ
+* JMP 0000:7C00µÄ·½Ê½£¬Òò´Ëµ½ÕâÀïµÚÒ»ÌõÖ¸ÁîµÄÊ±ºò£¬CS=0x07C0£¬¶øIP=0x0000£¬ÕâÓë
+* ÎÒÃÇÏÂÃæÐèÒªÊ¹ÓÃµÄCSºÍIPÏà¶ÔÖµ²»Ò»ÖÂ£¬Òò´ËÕâÀïÐèÒªÒ»¸öÇ¿ÖÆµÄ°ì·¨À´¸üÐÂCSºÍIP
+* µÄÖµ¡£ÕâÀï²ÉÓÃµÄ¾ÍÊÇLJMPÖ¸ÁîµÄ·½Ê½£¬¸ÃÖ¸ÁîÖ´ÐÐÖ®ºó£¬CS»á±»¸ü¸ÄÎª0£¬¶øIP»á¸ü¸Ä
+* Îª$ABS(real_start)£¬¼´ÏÂÒ»ÌõÒªÖ´ÐÐµÄÖ¸ÁîµÄ¾ø¶ÔµØÖ·¡£
+*/
 	/*
 	 * ljmp to the next instruction because some bogus BIOSes
 	 * jump to 07C0:0000 instead of 0000:7C00.
 	 */
 	ljmp	$0, $ABS(real_start)
-
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê5ÔÂ3ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+*
+* GRUB 0.97 Stage1ÔËÐÐÁ÷³Ì
+*
+* µÚ8²½£¬ÔÚÇ°Ò»²½ÒÑ¾­½«CSÇ¿ÖÆÖÃÎª0£¬ÎÒÃÇ»¹ÐèÒª½«ÆäËûµÄÐèÒªÊ¹ÓÃµÄ¶Î¼Ä´æÆ÷£¬°üÀ¨
+* Êý¾Ý¶ÎºÍ¶ÑÕ»¶Î¼Ä´æÆ÷£¬¶¼ÖÃÎª0¡£Ö®ºó£¬ÔÙÉèÖÃ¶ÑÕ»Ö¸Õë¼Ä´æÆ÷ÎªSTAGE1_STACKSEG£¬
+* ¸ÃÖµÔÚ¡¾grub-0.97/stage1/stage1.h¡¿ÖÐ¶¨ÒåÎª0x2000¡£ÕâÑùÒ»À´£¬CS=DS=SS=0£¬´Ó
+* ¶øCPUµÄÔËÐÐµØÖ·²»ÔÙÒÀÀµÓÚÕâ¼¸¸ö¶Î¼Ä´æÆ÷£¬Ïàµ±ÓÚ½ûÖ¹ÁË·Ö¶Î»úÖÆ£¬ÓëÆÕÍ¨µÄRISC
+* ÕóÓªµÄCPUÑ°Ö·Ä£Ê½ÏàËÆ£¬Ö»ÐèÒª¹Ø×¢µØÖ·µÄÆ«ÒÆÁ¿²¿·Ö¡£µ±ÉèÖÃÁËÕâÐ©»ù±¾¼Ä´æÆ÷Ö®
+* ºó£¬¾Í¿ÉÒÔÔÊÐíÖÐ¶ÏÁË£¬Òò´Ë´ò¿ªÖÐ¶ÏÊ¹ÄÜ¡£
+*/
 real_start:	
 
 	/* set up %ds and %ss as offset from 0 */
@@ -138,7 +322,29 @@ real_start:
 	movw	$STAGE1_STACKSEG, %sp
 
 	sti		/* we're safe again */
-
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê5ÔÂ3ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+*
+* GRUB 0.97 Stage1ÔËÐÐÁ÷³Ì
+*
+* µÚ9²½£¬¼ì²éÔÚBIOS²ÎÊý¿éÖÐµÄboot_driveµØÖ·´¦ÊÇ·ñÓÐÒ»¸öºÏ·¨µÄ´ÅÅÌºÅ£¬Èç¹ûÔÚÆô¶¯
+* ÉÈÇøµÄÕâ¸öµØÖ·±»Ð´ÈëÁËÒ»¸öºÏ·¨µÄÆô¶¯´ÅÅÌºÅ£¬Õâ½«Õâ¸ö´ÅÅÌºÅ¸üÐÂµ½DL¼Ä´æÆ÷ÖÐ£¬
+* ·ñÔò¼ÌÐøÊ¹ÓÃ´ÓBIOS´«µÝÀ´µÄ´ÅÅÌºÅ¡£Õâ¸ö´ÅÅÌºÅ»áÔÚºóÃæ±»Ê¹ÓÃÀ´¶ÁÈ¡GRUB 0.97µÄ
+* Stage2µÄÓ³ÏñµÄ¡£×¢Òâ£¬ÕâÀïËäÈ»ÎÒÃÇµÄÔ´´úÂëÔÚboot_driveÕâ¸öÎ»ÖÃÌîÈëµÄÖµÊÇÒ»¸ö
+* ÎÞÐ§µÄÖµ£¨GRUB_INVALID_DRIVE£¬¼´0xFF£©£¬µ«ÊÇÍâ²¿³ÌÐò£¬ÀýÈçÒ»¸ö¶þ½øÖÆ±à¼­³ÌÐò£¬
+* »òÕßÔÚÔËÐÐÖÐµÄ²Ù×÷ÏµÍ³ÄÚµÄ´ÅÅÌ¹ÜÀí³ÌÐò£¬¶¼¿ÉÒÔÐÞ¸ÄÆô¶¯ÉÈÇøµÄÕâ¸öÎ»ÖÃ£¬ÌîÈëÒ»
+* ¸öÊÊµ±µÄÖµÀ´¸Ä±äÕâ¸öÓÃÒÔ¼ÓÔØStage2µÄ´ÅÅÌºÅ£¬´Ó¶ø¸Ä±ä¼ÓÔØµÄÆô¶¯Ó³Ïñ¡£´Ó°²È«½Ç
+* ¶È½²£¬ÕâÊÇÒ»¸öÖµµÃ×¢ÒâµÄµØ·½¡£
+*/
 	/*
 	 *  Check if we have a forced disk reference here
 	 */
@@ -149,11 +355,50 @@ real_start:
 1:
 	/* save drive reference first thing! */
 	pushw	%dx
-
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê5ÔÂ3ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+*
+* GRUB 0.97 Stage1ÔËÐÐÁ÷³Ì
+*
+* µÚ10²½£¬½«DX¼Ä´æÆ÷Ñ¹Èë¶ÑÕ»£¨´Ó¶øÔÚÏÂÃæµÄ´úÂëÖÐ¿ÉÒÔÊ¹ÓÃDX¼Ä´æÆ÷£¬ÐèÒªÆô¶¯´ÅÅÌ
+* ºÅÊ±ÔÙ´Ó¶ÑÕ»´¦µ¯³ö£©¡£½Ó×Å´òÓ¡Ò»ÌõÏûÏ¢"GRUB"£¬¸æËßÓÃ»§GRUBÕýÔÚÆô¶¯¡£
+*/
 	/* print a notification message on the screen */
 	MSG(notification_string)
-
-	/* do not probe LBA if the drive is a floppy */
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê5ÔÂ3ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+*
+* GRUB 0.97 Stage1ÔËÐÐÁ÷³Ì
+*
+* µÚ11²½£¬¼ì²éÇý¶¯´ÅÅÌÊÇ·ñÖ§³ÖLBAÄ£Ê½¡£²¢¸ù¾Ý¼ì²â½á¹û¾ö¶¨°´ÕÕLBAÄ£Ê½»¹ÊÇCHSÄ£Ê½
+* ·ÃÎÊÆô¶¯Éè±¸¡£Ê×ÏÈ£¬Èç¹ûÆô¶¯´ÅÅÌÊÇÈíÇý£¬ÄÇÃ´¿Ï¶¨²»Ö§³ÖLBAÄ£Ê½£¬Ö±½ÓÌø×ªµ½
+* chs_mode¡£
+*
+* ×¢Òâ£¬ÕâÀïÊ¹ÓÃµÄÊÇBIOS INT 0x13µÄÀ©Õ¹À´ÊµÏÖLBAÖ§³ÖµÄ¼ì²âµÄ¡£¸ù¾ÝÀ´×Ô¡¶BIOS 
+* Enhanced Disk Drive Specification¡·¶ÔÕâ¸öBIOSÖÐ¶Ïµ÷ÓÃÀ©Õ¹µÄÃèÊö¡£Èç¹ûµ÷ÓÃÊ§
+* °Ü£¨Carry Set£©£¬»òÕßBXÃ»ÓÐ°´ÕÕ¹æ·¶ÒªÇó±»ÉèÖÃÎª0xAA55£¬CXÖÐµÄbit0£¨Fixed 
+* disk access subset£©Ã»ÓÐÉèÖÃ£¬ÄÇÃ´Ö»ÄÜÊ¹ÓÃCHSÄ£Ê½¡£·´Ö®£¬Èç¹ûCXÖÐµÄbit0
+*£¨Fixed disk access subset£©±»ÉèÖÃ£¬Ôò¿ÉÒÔÊ¹ÓÃ¸Ã¹¦ÄÜÖ§³ÖµÄdisk address packet 
+* ½á¹¹À´·ÃÎÊ´ÅÅÌ£¬¶ødisk address packetÖÐÊ¹ÓÃµÄ¾ÍÊÇ´ÅÅÌÉÈÇøµÄLBAµØÖ·¡£
+*/	/* do not probe LBA if the drive is a floppy */
 	testb	$STAGE1_BIOS_HD_FLAG, %dl
 	jz	chs_mode
 			
@@ -180,7 +425,48 @@ real_start:
 	jnz	lba_mode
 	andw	$1, %cx
 	jz	chs_mode
-	
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê5ÔÂ3ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+*
+* GRUB 0.97 Stage1ÔËÐÐÁ÷³Ì
+*
+* µÚ12²½£¬Ê¹ÓÃLBAÄ£Ê½¶ÁÈ¡¡£ÕâÀïÊ×ÏÈÌîÐ´Ò»¸ö½Ð×ö"disk address packet"µÄÊý¾Ý½á¹¹£¬
+* ¾ßÌå½á¹¹ÎÒÃÇÂíÉÏÔÚºóÃæ¸ø³ö¡£È»ºóµ÷ÓÃBIOS INT 0x13µÄÀ©Õ¹0x42À´Êµ¼Ê¶ÁÈ¡¡£
+*
+* ÕâÀïÎÒÃÇ·¢ÏÖµÚÒ»¾äÊÇ"movl	0x10(%si), %ecx"£¬ÇÒ×¢ÊÍËµ"save the total number of 
+* sectors"£¬µ«ÊÇÎÒÃÇÍ¨¹ý·ÖÎö£¬·¢ÏÖ¸ù±¾Ö®Ç°Ã»ÓÐÃ÷È·µÄ¶Ô0x10(%si)¸³Öµ£¬Ç°ÃæÎ¨Ò»
+* ÉèÖÃÁËSI¼Ä´æÆ÷µÄÊÇÔÚMSGºê´¦£¬µ«ÊÇÏÔÈ»ÄÇÀï¶ÔSIµÄÖµÓëÕâÀïµÄsectorÎÞ¹Ø£»´ËÍâ£¬
+* ÎÒÃÇ¿ÉÒÔ·¢ÏÖÕâÀïµÄECX¼Ä´æÆ÷Ö®ºóÃ»ÓÐ±»Ê¹ÓÃµ½£¬Òò´Ë¿ÉÒÔÅÐ¶¨ÕâÀïµÄµÚÒ»¼þÃ»ÓÐÊµ¼Ê
+* ÓÃ´¦¡£
+*
+* ÏÂÃæÒ»¾ä£¬½«disk_address_packet±êºÅµÄ¾ø¶ÔµØÖ·ÉèÖÃ¸øSI¼Ä´æÆ÷£¬´Ó¶øºóÃæ¿ÉÒÔÓÃ
+* ¸öSI¼Ä´æÆ÷¼ÓÉÏÒ»¶¨µÄÆ«ÒÆÁ¿À´Ñ°Ö·disk_address_packetµÄ×Ö¶Î£¬´Ó¶ø¶ÔÆäÉèÖÃ¾ßÌå
+* Öµ¡£ÕâÀï£¬±êºÅdisk_address_packetÊµ¼ÊºÍÆäËû¼¸¸ö±êºÅ¹²ÓÃÒ»¶ÎµØÖ·¿Õ¼ä£¬Õâ¶Î¹²
+* ÏíµÄ¿Õ¼ä×Ü¹²14×Ö½Ú£¬µ«ÊÇºóÃæ¿ÉÒÔÔÚ¸½¼ÓÒ»Ð©×Ö½Ú£¨´Ó¶ø¿ÉÒÔÂú×ã
+* disk_address_packetÖÁÉÙ16×Ö½ÚµÄÒªÇó£©¡£Õâ¶Î¹²ÏíµÄ¿Õ¼äÊÇÒòÎªLBAºÍCHSÄ£Ê½Ö»ÄÜ
+* Ñ¡ÔñÆäÖÐÒ»¸ö£¬Òò´ËËûÃÇ¹¤×÷µÄÊ±ºòµÄ²ÎÊý±äÁ¿Ò²Ö»ÐèÆäÖÐÒ»ÖÖ¡£
+*
+* ÏÂÒ»ÌõÖ¸Áî"movb	$1, -1(%si)"£¬½«mode±äÁ¿ÉèÖÃÎª1£¨´Ódisk_address_packetµØÖ·
+* ÍùÇ°ÃæÒ»¸ö×Ö½Ú¾ÍÊÇmode±äÁ¿µÄµØÖ·£©£»ÔÙÏÂÒ»Ìõ£¬½«Stage2µÄÉÈÇøºÅ±£´æµ½EBX¼Ä´æ
+* Æ÷ÖÐ£»ÔÙ½Ó×Å¾ÍÊÇÌîÐ´disk_address_packetµÄÇ°ÃæÁ½Ïî£¬Ö¸¶¨¸ÃpacketÎª16×Ö½Ú£»ÔÙ
+* ÏÂÒ»Ìõ£¬Éè¶¨Stage2µÄÉÈÇø¸öÊý£¬¹Ì¶¨Ö»ÓÐÒ»¸öÉÈÇø¡£½Ó×ÅÔÙ½«EBX¼Ä´æÆ÷ÖÐµÄÖµ£¬Ò²
+* ¼´Ç°Ãæ±£´æµÄStage2µÄÉÈÇøºÅÌîÈëdisk_address_packetµÄ"Starting logical block 
+* address"×Ö¶Î£»ÔÙ½Ó×Å¾ÍÊÇ½«disk_address_packetµÄ"Address of transfer buffer"
+* ÉèÖÃÎª0x7000:0x0000£¬Ò²¾ÍÊÇËµ£¬Stage2»á±»¶ÁÈëµ½0x70000´¦(STAGE1_BUFFERSEGÔÚ
+*¡¾grub-0.97/stage1/stage1.h¡¿ÖÐ¶¨ÒåÎª0x7000)¡£ ºóÃæ¾ÍÊÇÕæµÄµ÷ÓÃ"int $0x13"À´
+* ¶ÁÈ¡Stage2µÄ¹ý³Ì£¬Èç¹ûÊ§°Ü£¬Ôò¼ÌÐø³¢ÊÔÊ¹ÓÃCHSÄ£Ê½¶ÁÈ¡¡£Èç¹û³É¹¦£¬ÔòÌø×ªµ½
+* copy_buffer´¦Ö´ÐÐ¡£ÔÚÌø×ªÖ®Ç°£¬½«STAGE1_BUFFERSEGÉèÖÃµ½BX¼Ä´æÆ÷ÖÐ£¬ÔÚ
+* copy_bufferÖ´ÐÐ¹ý³ÌÖÐ»á±»ÓÃµ½¡£
+*/	
 lba_mode:
 	/* save the total number of sectors */
 	movl	0x10(%si), %ecx
@@ -226,7 +512,37 @@ lba_mode:
 
 	movw	$STAGE1_BUFFERSEG, %bx
 	jmp	copy_buffer
-		
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê5ÔÂ3ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+*
+* GRUB 0.97 Stage1ÔËÐÐÁ÷³Ì
+*
+* µÚ14²½£¬Èç¹ûÃ»ÓÐÖ´ÐÐLBAÄ£Ê½£¬ÄÇÃ´¾Í»áÂäµ½chs_mode¡£ÏÂÃæ·ÖÎöchs_mode²¿·Ö´úÂëµÄ
+* ÊµÏÖ¡£
+*
+* Ê×ÏÈÊÇ"int	$0x13"µ÷ÓÃ0x08£¬¸Ãµ÷ÓÃµÄÊäÈëÊä³ö²ÎÊýÈçÏÂÍ¼ËùÊ¾£¬Èç¹û³É¹¦£¬ÔòÌø
+* ×ªµ½final_initÖ´ÐÐ£¬·ñÔò¿´ÊÇ·ñ¿ÉÄÜÐèÒªÌ½²âFloppy£¬Èç¹ûÐèÒª¾ÍÌø×ªµ½floppy_probe
+*£¨¾ßÌå·ÖÎö¼ûÏÂÎÄ£©£¬×îÔã¸âµÄÇéÐÎÊÇ³öÏÖÓ²ÅÌ³ö´í£¬ÄÇÃ´Ö»ÄÜÌø×ªhd_probe_error¡£
+*
+* ¸ù¾Ý¶ÁÈ¡µÄ´ÅÅÌ²ÎÊý£¬final_initÖ´ÐÐÒ»Ð©½øÒ»²½µÄ²Ù×÷£¬Ö÷ÒªÊÇÌîÐ´ÔÚÇ°Ãæ¿´µ½¹ýµÄ
+* Óëdisk_address_packet¹²ÏíµÄÒ»¶Î±äÁ¿µØÖ·¿Õ¼äÀïÃæµÄ±äÁ¿£¬°üÀ¨sectors£¬heads£¬
+* cylinders£¬sector_start£¬head_start£¬ÒÔ¼°cylinder_start£¬Ïà¹Ø´úÂëÏà¶Ô¼òµ¥£¬
+* Æä¹ý³Ì²»ÔÙÏêÊö¡£
+*
+* ÏÂÃæµÄsetup_sectors»á½øÒ»²½¸ù¾ÝÕâÐ©²ÎÊýÀ´¹¹ÔìBIOSµÄ"INT 0x13 Function 0x2"
+* ÐèÒªµÄ²ÎÊýÖµ£¬²¢µ÷ÓÃ¸ÃBIOSµ÷ÓÃÀ´½²Stage2¶ÁÈëµ½STAGE1_BUFFERSEGÖ¸¶¨µÄ¶ÎµØÖ·´¦¡£
+* ×îºó»¹ÊÇ½Ó×ÅÔËÐÐcopy_buffer,½«Stage2µÄ´úÂë´Ó0x70000¿½±´µ½0x8000´¦£¬²¢½Ó×ÅÌø
+* ×ªµ½Stage2´¦ÔËÐÐ¡£
+*/		
 chs_mode:	
 	/*
 	 *  Determine the hard disk geometry from the BIOS!
@@ -345,7 +661,28 @@ setup_sectors:
 	jc	read_error
 
 	movw	%es, %bx
-	
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê5ÔÂ3ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+*
+* GRUB 0.97 Stage1ÔËÐÐÁ÷³Ì
+*
+* µÚ13²½£¬Ö´ÐÐcopy_buffer¡£Ê×ÏÈ¾ÍÊÇ½«stage2_segmentµÄÖµÉèÖÃ¸øES¼Ä´æÆ÷£¬¼´ESÉèÖÃ
+* Îª0x800£¬¼´ÉèÖÃÁËcopy²Ù×÷µÄÄ¿µÄµØÖ·¡£ºóÃæ½«BX¼Ä´æÆ÷ÉèÖÃ¸øDS¼Ä´æÆ÷£¬¼´ÉèÖÃÁË
+* copy²Ù×÷µÄÔ´µØÖ·£»½Ó×Åµ÷ÓÃrep movsw°áÒÆ0x100£¨¼´256£©´Î£¬Ã¿´Î2×Ö½Ú£¬×Ü¹²512×Ö
+* ½Ú¡£×¢Òâ£¬ÕâÀïµÄmovsw ²Ù×÷·½ÏòÊÇ£º(ES:DI)(DS:SI)£»ÇÒÕâÀïÊ¹ÓÃÁËcld£¬Òò´ËÃ¿´Î
+* copyÖ®ºóSIºÍDI¶¼ÒªµÝÔö2×Ö½Ú¡£ÔÙÐèÒª×¢ÒâµÄÊÇ£¬ÔÚÖ´ÐÐ¿½±´Ö®Ç°ºÍÖ®ºó£¬ÓÐpushaºÍ
+* popa²Ù×÷£¬±£´æÁËECXºÍSI¼Ä´æÆ÷¡£×îºó£¬Ò»¾äjmp	*(stage2_address)Ìø×ªµ½ÁËStage2
+* Ö´ÐÐ£¨stage2_addressµÄÖµÊÇ0x8000£©¡£
+*/
 copy_buffer:
 	movw	ABS(stage2_segment), %es
 
@@ -405,7 +742,24 @@ geometry_error_string:	.string "Geom"
 hd_probe_error_string:	.string "Hard Disk"
 read_error_string:	.string "Read"
 general_error_string:	.string " Error"
-
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê5ÔÂ3ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+*
+* GRUB 0.97 Stage1ÔËÐÐÁ÷³Ì
+*
+* Êµ¼Êmessage()º¯ÊýµÄÊµÏÖºÜ¼òµ¥£º´ÓSI¼Ä´æÆ÷ËùÖ¸µÄµØÖ·´¦¼ÓÔØÒ»¸ö×Ö½Úµ½AL¼Ä´æÆ÷£¬
+* ±È½ÏÑéÖ¤¸Ã×Ö½Ú²»ÊÇ×Ö·û´®Ä©Î²µÄ'\0'×Ö½Ú£¬È»ºóµ÷ÓÃBIOSÖÕ¶Ëint 0x10ÊµÏÖÊä³ö¸Ã×Ö
+* ½Ú£¬¸Ã²Ù×÷Ö±µ½Óöµ½×Ö·û´®Ä©Î²µÄ'\0'×Ö½Ú²Å½áÊø£¬·µ»Ø±»µ÷ÓÃµØÖ·´¦¡£
+*/
 /*
  * message: write the string pointed to by %si
  *
@@ -448,7 +802,37 @@ part_start:
 
 probe_values:
 	.byte	36, 18, 15, 9, 0
-
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê5ÔÂ3ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+*
+* GRUB 0.97 Stage1ÔËÐÐÁ÷³Ì
+*
+* µÚ15²½£¬floppy_probeÏà¹Ø´úÂë¡£Êµ¼ÊÉÏÔÚ¡¾grub-0.97/stage1/stage1.S¡¿µÄ×îºó²¿·Ö
+* ´úÂë¶ÔÓ¦ÓÚÆô¶¯ÉÈÇøµÄ×îºó²¿·Ö¡£Õâ²¿·Ö´úÂëÖ÷ÒªÊÇÎªÁËºÍWindowsÆô¶¯ÉÈÇø¼æÈÝ¡£ÌØ±ð
+* µÄ£¬ÔÚÎ»ÓÚÆ«ÒÆÁ¿0x1b8´¦£¨¼´STAGE1_WINDOWS_NT_MAGIC´¦£©£¬Windows NTÇ¶ÈëÁËÁ½¸ö
+* Ææ¹ÖÊý×Ö¡£´ËÍâ£¬´Ó0x1be£¨¼´STAGE1_PARTSTART£©µ½0x1fe£¨¼´STAGE1_PARTEND£©Çø¼ä
+* µÄ64×Ö½ÚÊÇ´«Í³µÄÓ²ÅÌ·ÖÇø±íÇø¶Î¡£ÔÚÕâÒ»¶Î£¬¶ÔÓÚÓ²ÅÌ¾Í»á±£´æÊµ¼ÊµÄ·ÖÇø±íÐÅÏ¢¡£
+* Èç¹û´æ´¢Õâ¸öÆô¶¯ÉÈÇøµÄ´ÅÅÌÊÇÈíÅÌµÄ»°£¬ÔòÕâÒ»Çø¶Î¿ÉÒÔ²»ÓÃ£¨ÈíÅÌÎÞÐè·ÖÇø£©£¬Òò
+* ´ËÕâÒ»¶Î¿ÉÒÔ±£´æ´úÂë¡£GRUB 0.97¼ÙÉèÕâÀïÊÇÓÃÈíÅÌ×öÆô¶¯£¬Òò´ËÕâÀï¾Í¼ÓÈëÁËÒ»¶Î
+* Ì½²âÈíÇýµÄfloppy_probe´úÂë¡£´úÂëÏÈ½«probe_valuesµØÖ·£¨¸ÃµØÖ·Êµ¼Ê¾ÍÊÇ·ÖÇø±íµÄ
+* ÆðÊ¼µØÖ·£©¼õÈ¥1×Ö½Ú£¬²¢½«Æä¼ÓÔØµ½SI¼Ä´æÆ÷ÖÐ¡£½Ó×Å½øÈëprobe_loop£¬µ÷ÓÃ"INT 13h 
+* AH=0"À´ÖØÖÃÈíÇý£»½Ó×ÅÍ¨¹ýµÝÔöSI¼Ä´æÆ÷²¢´ÓÆäËùÖ¸µÄµØÖ·¼ÓÔØÒ»¸ö×Ö½Úµ½CL¼Ä´æÆ÷
+*£¨Ò²¼´ÒÀ´Î¶ÁÈ¡probe_valuesµÄÖµ£©£¬²¢±È½ÏÕâ¸öÖµÊÇ·ñÎª0£¨¼´µ½ÁËprobe_valuesµÄÄ©
+* Î²£©£¬Èç¹ûµ½ÁËprobe_valuesµÄÄ©Î²¾Í´òÓ¡fd_probe_error_stringÏûÏ¢²¢ÍË³ö
+* probe_loopµ½general_error´¦¡£·ñÔò¾Í»á³¢ÊÔµ÷ÓÃ"INT 13h AH=2"À´¶ÁÈ¡Ò»¸öÉÈÇøµ½
+* STAGE1_BUFFERSEGÖ¸¶¨µÄ¶ÎµØÖ·´¦¡£Èç¹ûÊ§°Ü¾ÍÑ­»·probe_loopÖ±µ½Óöµ½probe_values
+* µÄÄ©Î²¡£·ñÔò¾ÍËã¶ÁÈ¡³É¹¦£¬ÐÞÕý²ÎÊýºóÌø×ªµ½final_init´¦¼ÌÐø£¬´Ó¶ø»Øµ½Ç°ÃæÃèÊö
+* µÄµÚ14²½£¬½ø¶øÖ´ÐÐcopy_buffer£¬×îÖÕ»¹ÊÇÌø×ªµ½Stage2µÄ×îÖÕµØÖ·´¦Ö´ÐÐ¡£
+*/
 floppy_probe:
 /*
  *  Perform floppy probe.

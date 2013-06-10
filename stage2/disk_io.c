@@ -31,6 +31,30 @@
 # include <device.h>
 #endif
 
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容: GRUB 0.97 设备命名命名习惯
+* 
+* 首先GRUB要求设备名被括在一个括号中。fd表示软盘，hd表示硬盘（不区分IDE还是SCSI）。
+* 其次设备是从0开始编号。分区也是如此，分区和设备之间用一个逗号分开。
+*
+* 下面给出几个例子 ：
+*
+* (fd0) ：表示整个软盘
+* (hd0,1)：表示系统的第一个硬盘的第2个分区
+* (hd0,0)：表示系统中的第一个硬盘的第一个分区。
+*
+* 如果没有指定某个分区，则表示使用整个设备，否则只使用指定的分区。
+*/
+
 /* instrumentation variables */
 void (*disk_read_hook) (int, int, int) = NULL;
 void (*disk_read_func) (int, int, int) = NULL;
@@ -126,7 +150,27 @@ struct geometry buf_geom;
 /* filesystem common variables */
 int filepos;
 int filemax;
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现计算参数word的log2值的功能。通过使用内联汇编，用bsfl指令实现。
+*
+* intel汇编指令：bsf oprd1, oprd2;  顺向位扫描(bit scan forward)  
+*
+* 从右向左（从位0-->位15或位31）扫描字或双字操作数oprd2中第一个为"1"的位，并把
+* 扫描到的第一个为'1'的位的位号送给操作数oprd1。
+*
+* AT&T格式汇编指令bsfl类似bsf，只是源操作数和目的操作数顺序相反。
+*/
 static inline unsigned long
 log2 (unsigned long word)
 {
@@ -135,7 +179,22 @@ log2 (unsigned long word)
 		: "r" (word));
   return word;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现底层扇区读取的功能。参数drive为要读取的磁盘号；参数sector为要读取的
+* 扇区号；参数byte_offset为读取的数据在扇区中的偏移；参数byte_len为读取数据长度；
+* 参数buf为要读取数据的目的地址空间。
+*/
 int
 rawread (int drive, int sector, int byte_offset, int byte_len, char *buf)
 {
@@ -289,7 +348,22 @@ rawread (int drive, int sector, int byte_offset, int byte_len, char *buf)
   return (!errnum);
 }
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现当前磁盘扇区读取的功能。参数sector为要读取的扇区号；参数byte_offset
+* 为读取的数据在扇区中的偏移；参数byte_len为读取数据长度；参数buf为要读取数据的
+* 目的地址空间。
+*/
 int
 devread (int sector, int byte_offset, int byte_len, char *buf)
 {
@@ -327,7 +401,21 @@ devread (int sector, int byte_offset, int byte_len, char *buf)
   return rawread (current_drive, part_start + sector, byte_offset,
 		  byte_len, buf);
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现指定磁盘扇区写入的功能。参数drive为要写入的磁盘号；参数sector为要写
+* 入的扇区号；参数buf为要写入数据的源地址空间。返回0表示失败；返回1表示成功。
+*/
 #ifndef STAGE1_5
 int
 rawwrite (int drive, int sector, char *buf)
@@ -361,7 +449,21 @@ rawwrite (int drive, int sector, char *buf)
 
   return 1;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现当前磁盘扇区写入的功能。参数sector为要写入的扇区号；参数sector_count
+* 为要写入的扇区数；参数buf为要写入数据的源地址空间。返回0表示失败；返回1表示成功。
+*/
 int
 devwrite (int sector, int sector_count, char *buf)
 {
@@ -391,7 +493,20 @@ devwrite (int sector, int sector_count, char *buf)
       return 1;
     }
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现判断当前磁盘扇区是否健全的功能。返回1表示健全；返回0表示不健全。
+*/
 static int
 sane_partition (void)
 {
@@ -413,7 +528,23 @@ sane_partition (void)
   return 0;
 }
 #endif /* ! STAGE1_5 */
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现尝试使用可用的文件系统驱动mount磁盘的功能。实际是通过调用文件系统的
+* (*(fsys_table[fsys_type].mount_func)函数指针实现的。该函数对Stage 1.5和Stage 2
+* 有两种不同实现；对于State 1.5，只有一种在编译时选定的固定的文件系统；对于Stage 
+* 2则有可用的所有文件系统驱动。
+*/
 static void
 attempt_mount (void)
 {
@@ -436,6 +567,21 @@ attempt_mount (void)
 
 
 #ifndef STAGE1_5
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现将的saved_drive磁盘的saved_partition分区的活跃标志(active flag)设置
+* 为1的功能。也就是使得这些分区为活跃分区。
+*/
 /* Turn on the active flag for the partition SAVED_PARTITION in the
    drive SAVED_DRIVE. If an error occurs, return zero, otherwise return
    non-zero.  */
@@ -496,7 +642,21 @@ make_saved_active (void)
 
   return 1;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现将的saved_drive磁盘的saved_partition分区的隐藏标志(hidden flag)设置
+* 为1的功能。也就是使得这些分区为隐藏分区。
+*/
 /* Hide/Unhide CURRENT_PARTITION.  */
 int
 set_partition_hidden_flag (int hidden)
@@ -547,7 +707,20 @@ set_partition_hidden_flag (int hidden)
   return 1;
 }
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现尝试mount磁盘并打印磁盘的文件系统类型的功能。
+*/
 static void
 check_and_print_mount (void)
 {
@@ -560,7 +733,25 @@ check_and_print_mount (void)
 }
 #endif /* STAGE1_5 */
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现获取下一个分区信息的功能。参数drive为要获取下一个分区的磁盘号；参数
+* 为FreeBSD的特定参数；参数*partition将用作输出参数保存GRUB分区；参数*type保存
+* 分区类型；参数*start保存分区起始扇区；参数*len保存分区长度；参数*offset保存分
+* 区表的偏移量；参数*entry表上在分区表中的入口号；参数*ext_offset保存扩展分区的
+* 偏移量；参数buf保存MBR或者分区的启动扇区或者FreeBSD的标签分区。首次调用该函数
+* 时*partition应该初始化为0xFFFFFF；返回0表上失败，否则表示成功。
+*/
 /* Get the information on next partition on the drive DRIVE.
    The caller must not modify the contents of the arguments when
    iterating this function. The partition representation in GRUB will
@@ -747,7 +938,20 @@ next_partition (unsigned long drive, unsigned long dest,
 static unsigned long cur_part_offset;
 static unsigned long cur_part_addr;
 #endif
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现实际打开磁盘分区的功能。
+*/
 /* Open a partition.  */
 int
 real_open_partition (int flags)
@@ -919,7 +1123,20 @@ real_open_partition (int flags)
   return 0;
 }
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现打开磁盘分区的功能。
+*/
 int
 open_partition (void)
 {
@@ -938,7 +1155,20 @@ static enum
 }
 part_choice;
 #endif /* ! STAGE1_5 */
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现设置当前磁盘和分区的功能。即设置current_drive和current_partition。
+*/
 char *
 set_device (char *device)
 {
@@ -1102,7 +1332,20 @@ set_device (char *device)
   
 #endif /* ! STAGE1_5 */
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现mount当前磁盘和分区的功能。
+*/
 /*
  *  This performs a "mount" on the current device, both drive and partition
  *  number.
@@ -1122,6 +1365,20 @@ open_device (void)
 
 
 #ifndef STAGE1_5
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现设置启动磁盘设备的功能。
+*/
 int
 set_bootdev (int hdbias)
 {
@@ -1174,6 +1431,36 @@ set_bootdev (int hdbias)
 }
 #endif /* STAGE1_5 */
 
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 注意到这里的GRUB_INVALID_DRIVE定义为0xFF【grub-0.97/stage1/stage1.h】，并且注
+* 意到前面的Stage1.5的config_file变量在【grub-0.97/stage2/asm.S】中定义的是一个
+* 指向以0xffffffff开始紧接着一个字符数组的结构体的指针。那么，上面的set_device()
+* 函数就会解析出来得到current_drive为saved_drive。再回忆起在
+*【grub-0.97/stage2/common.c】中的init_bios_info()函数末尾，在调用cmain()函数之
+* 前，有一个"saved_drive = boot_drive"的步骤，因此我们可以得知，如果在安装GRUB 
+* 0.97的过程中没有对Stage1.5的映像进行修改，那么这里的config_file开始仍然是
+* 0xffffffff，从而会导致这里的current_drive就是启动盘；而current_partition为
+* 0xFFFFFF。接着，这个set_device()函数就会返回指向字符串数组"/boot/grub/stage2"
+* 的指针。
+*
+* 我们现在继续关注Stage1.5，我们知道在编译Stage1.5时，是定义了NO_BLOCK_FILES这
+* 个宏的（-DNO_BLOCK_FILES=1），进而这里的setup_part()函数实际会执行代码
+* open_device()。 
+*
+* 由于这里我们考虑的是第一次调用grub_open()的情形，因此这里的open_partition()
+* 应该会失败，从而会调用attempt_mount()。
+*/
 
 static char *
 setup_part (char *filename)
@@ -1243,6 +1530,20 @@ setup_part (char *filename)
 
 
 #ifndef STAGE1_5
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现打印磁盘设备的文件系统类型的功能。
+*/
 /*
  *  This prints the filesystem type or gives relevant information.
  */
@@ -1268,6 +1569,20 @@ print_fsys_type (void)
 #endif /* STAGE1_5 */
 
 #ifndef STAGE1_5
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现辅助打印文件名完成的功能。
+*/
 /* If DO_COMPLETION is true, just print NAME. Otherwise save the unique
    part into UNIQUE_STRING.  */
 void
@@ -1300,7 +1615,20 @@ print_a_completion (char *name)
   
   unique++;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现列出所有可能的辅助打印文件名完成的功能。
+*/
 /*
  *  This lists the possible completions of a device string, filename, or
  *  any sane combination of the two.
@@ -1529,6 +1857,23 @@ print_completions (int is_filename, int is_completion)
 }
 #endif /* STAGE1_5 */
 
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 这个函数一进来就调用的是"setup_part (filename)"。
+* 
+* 进而跟踪setup_part()函数，而该函数根据有没有定义STAGE1_5而分为两个部分，对于
+* 我们目前关注的STAGE1_5，又仅仅留下部分代码。
+*/
 
 /*
  *  This is the generic file open function.
@@ -1643,7 +1988,20 @@ grub_open (char *filename)
   return 0;
 }
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现读取当前磁盘文件的功能。
+*/
 int
 grub_read (char *buf, int len)
 {
@@ -1740,6 +2098,20 @@ grub_read (char *buf, int len)
 }
 
 #ifndef STAGE1_5
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现seek文件偏移量的功能。
+*/
 /* Reposition a file offset.  */
 int
 grub_seek (int offset)
@@ -1750,7 +2122,20 @@ grub_seek (int offset)
   filepos = offset;
   return offset;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现列出磁盘目录的功能。
+*/
 int
 dir (char *dirname)
 {
@@ -1776,7 +2161,20 @@ dir (char *dirname)
   return (*(fsys_table[fsys_type].dir_func)) (dirname);
 }
 #endif /* STAGE1_5 */
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现关闭磁盘文件系统的功能。
+*/
 void 
 grub_close (void)
 {

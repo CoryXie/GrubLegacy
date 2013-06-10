@@ -143,6 +143,51 @@ int iso9660_dir (char *dirname);
 #define BLK_BLKLIST_INC_VAL  8
 #endif /* NO_BLOCK_FILES */
 
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年6月3日
+*
+* @details 注释详细内容:
+* 
+* 该结构代表文件系统结构。
+*
+* @name: 文件系统名字。
+* @mount_func: 文件系统加载(初始化)函数指针。
+* @read_func: 文件系统读取函数指针。
+* @dir_func: 文件系统目录/文件打开函数指针。
+* @close_func: 文件系统关闭函数指针。
+* @embed_func: 文件系统嵌入Stage1.5的函数指针。
+*
+* 这些函数指针类似系统调用，在stage2/disk_io.c 中定义了grub_open,grub_close,
+* grub_read,grub_dir全局函数用于stage2 的文件操作:打开，关闭，读，切换目录。
+*
+* 为了简化文件系统驱动的编写，grub 不支持磁盘写（对于一个loader 来说也没有必要
+* 去写磁盘）。
+*
+* 任何一个文件系统驱动必须在fsys_table（stage2/disk_io.c）数组中去放置一个
+* struct fsys_entry 的结构体。
+*
+* 读入文件流程分析说明。假设在grub 的menulist 中有：kernel (hd0,0)/boot/vmlinuz
+*（或者我们在grub shell 中执行此命令）。
+* 
+* stage2 会先调用grub_open("(hd0,0)/boot/vmlinuz") 来打开文件。
+*
+* 在执行这个函数中，grub 会先在fsys_table 中循环调用fsys_entry::mount_func 去
+* 发现一个返回值为真的文件系统，即为当前的文件系统。然后利用当前文件系统驱动的
+* fsys_entry::dir_func 去打开/boot/vmlinuz。
+*
+* 然后stage2 会调用grub_read(buf,0)读入全部的/boot/vmlinuz 文件至内存中的buf
+* 地址。grub_read 是fsys_entry::read_func 的封装。
+*
+* 最后stage2 回调用grub_close 关闭文件，跟前面一样，这个调用仅仅是当前文件系统
+* fsys_entry::close_func 的简单封装。
+*/
 /* this next part is pretty ugly, but it keeps it in one place! */
 
 struct fsys_entry

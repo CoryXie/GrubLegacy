@@ -39,7 +39,27 @@ extern int get_diskinfo_floppy (int drive,
 				unsigned long *sectors);
 #endif
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现磁盘读取/写入功能。如果参数read为BIOSDISK_READ则为读取，如果参数read
+* 为BIOSDISK_WRITE则为写入；参数drive指定所要操作的磁盘；参数geometry封装了磁盘
+* 的类型信息，根据此信息，如果磁盘支持LBA模式扩展(BIOSDISK_FLAG_LBA_EXTENSION)，
+* 则通过BIOS int13调用，使用disk_address_packet结构传递操作信息，调用函数
+* biosdisk_int13_extensions()实现实际的操作，否则就按照CHS模式操作，使用函数
+* biosdisk_standard()实现实际的操作；如果LBA模式读写失败，则会退回到CHS模式重试；
+* 参数sector指定读写的起始扇区；参数nsec指定要读写的扇区数；参数segment指定读写
+* 操作的目的和源地址。函数失败时返回错误号，成功时返回0。
+*/
 /* Read/write NSEC sectors starting from SECTOR in DRIVE disk with GEOMETRY
    from/into SEGMENT segment. If READ is BIOSDISK_READ, then read it,
    else if READ is BIOSDISK_WRITE, then write it. If an geometry error
@@ -120,7 +140,25 @@ biosdisk (int read, int drive, struct geometry *geometry,
 
   return err;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 该函数实现检查CD-ROM emulation状态的功能。参数drive为要检查的磁盘号；参数
+* geometry为检查后填写的磁盘参数。通过biosdisk_int13_extensions()调用0x4B01获取
+* iso_spec_packet的media_type来查知其模拟的磁盘类型(非模拟的可启动CD-ROM或者模拟
+* 的软盘或者硬盘)；根据类型，填写geometry参数中的cylinders，heads，sectors，
+* sector_size以及total_sectors等字段。返回1表示磁盘为非模拟的可启动CD-ROM，返回
+* -1表示磁盘为模拟的软盘或者硬盘；返回0表示biosdisk_int13_extensions()执行失败。
+*/
 /* Check bootable CD-ROM emulation status.  */
 static int
 get_cdinfo (int drive, struct geometry *geometry)
@@ -177,7 +215,35 @@ get_cdinfo (int drive, struct geometry *geometry)
     }
   return 0;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 该函数实现检查磁盘信息的功能。参数drive为要检查的磁盘号；参数geometry为检查后
+* 填写的磁盘参数。
+*
+* 如果drive的bit7置位(0x80)，则磁盘为硬盘或者CD-ROM；对这类型的磁盘，调用函数
+* check_int13_extensions(),如果返回的version非0，或者drive >= 0x88，则为CD-ROM，
+* 因此调用get_cdinfo()来获取磁盘信息；否则，通过biosdisk_int13_extensions()的
+* 0x4800功能来获取drive_parameters；如果失败，则继续尝试get_diskinfo_standard()
+* 来获得磁盘信息。
+*
+* 如果drive的bit7没有置位，则磁盘为软盘；对这类磁盘，调用get_diskinfo_standard()
+* 来获得磁盘信息。
+*
+* 根据类型，填写geometry参数中的cylinders，heads，sectors，sector_size以及
+* total_sectors等字段。
+*
+* 失败时返回错误号，否则返回0。
+*/
 /* Return the geometry of DRIVE in GEOMETRY. If an error occurs, return
    non-zero, otherwise zero.  */
 int

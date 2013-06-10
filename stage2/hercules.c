@@ -34,14 +34,40 @@ static int herc_highlight_color = A_REVERSE;
 static int herc_current_color = A_NORMAL;
 static color_state herc_color_state = COLOR_STATE_STANDARD;
 static int herc_cursor_state = 1;
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现写端口的功能。参数port指定要写的端口地址；参数value指定要写入的值。
+*/
 /* Write a byte to a port.  */
 static inline void
 outb (unsigned short port, unsigned char value)
 {
   asm volatile ("outb	%b0, %w1" : : "a" (value), "Nd" (port));
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现设置HERCULES控制台光标位置的功能。
+*/
 static void
 herc_set_cursor (void)
 {
@@ -57,7 +83,20 @@ herc_set_cursor (void)
   outb (HERCULES_DATA_REG, offset >> 8);
   outb (0x80, 0);
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现输出字符到HERCULES控制台的功能。
+*/
 void
 hercules_putchar (int c)
 {
@@ -111,7 +150,20 @@ hercules_putchar (int c)
 	video[i] = 0x07200720;
     }
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现清屏HERCULES控制台的功能。
+*/
 void
 hercules_cls (void)
 {
@@ -124,13 +176,39 @@ hercules_cls (void)
   herc_x = herc_y = 0;
   herc_set_cursor ();
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现获取HERCULES控制台当前光标位置的功能。
+*/
 int
 hercules_getxy (void)
 {
   return (herc_x << 8) | herc_y;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现设置HERCULES控制台光标到特定x,y位置的功能。
+*/
 void
 hercules_gotoxy (int x, int y)
 {
@@ -138,7 +216,20 @@ hercules_gotoxy (int x, int y)
   herc_y = y;
   herc_set_cursor ();
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现设置HERCULES控制台颜色状态的功能。
+*/
 void
 hercules_setcolorstate (color_state state)
 {
@@ -159,7 +250,20 @@ hercules_setcolorstate (color_state state)
 
   herc_color_state = state;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现设置HERCULES控制台颜色的功能。
+*/
 void
 hercules_setcolor (int normal_color, int highlight_color)
 {
@@ -168,7 +272,20 @@ hercules_setcolor (int normal_color, int highlight_color)
   
   hercules_setcolorstate (herc_color_state);
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现设置HERCULES控制台开启/关闭的功能。
+*/
 int
 hercules_setcursor (int on)
 {

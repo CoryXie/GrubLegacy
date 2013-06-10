@@ -38,6 +38,22 @@
 
 #include "shared.h"
 
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 该代码的开始,仍然是ABS(x)宏，用以将标号标号相对于main的偏移转换为绝对地址，并且
+* 仍然根据有没有定义STAGE1_5而有两个不同定义。通过前面的分析知道，如果是STAGE1_5
+* 则会被加载到0x2200，否则就会被加载到0x8200。
+*/
 #ifdef STAGE1_5
 # define	ABS(x)	((x) - EXT_C(main) + 0x2200)
 #else
@@ -144,7 +160,30 @@ codestart:
 
 	/* transition to protected mode */
 	DATA32	call EXT_C(real_to_prot)
-
+	
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 上面的代码执行了以下几步：
+* 1）禁止CPU中断，为了后面要设置堆栈指针
+* 2）清零DS,SS,ES寄存器，从而对内存的访问属于平坦模式（没有分段）
+* 3）对于非DISKLESS模式，将保存asm.S的扇区号保存到install_second_sector变量中
+* 4）建立实模式（BIOS）下的堆栈指针为STACKOFF，即(0x2000 - 0x10)，这个STACKOFF
+*    定义于【grub-0.97/stage2/shared.h】。
+* 5）使能中断，因为现在已经好设置堆栈指针
+* 6）对于非DISKLESS模式，保存启动磁盘号到boot_drive变量，调用BIOS中断复位软驱
+* 7）通过"DATA32  call EXT_C(real_to_prot)"调用real_to_prot，从实模式转换进入
+*    保护模式。
+**/
 	/* The ".code32" directive takes GAS out of 16-bit mode. */
 	.code32
 
@@ -185,6 +224,39 @@ codestart:
 	 */
 	call EXT_C(init_bios_info)
 
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 上面的代码完成了如下几个关键操作：
+* 
+* 1）清零BSS段。这是通过清零从__bss_start（或者_edata或者edata）开始到
+*   end（或者_end）结束的数据区间实现的。这里根据配置选择编译了
+*   HAVE_USCORE_USCORE_BSS_START_SYMBOL，HAVE_USCORE_EDATA_SYMBOL以及
+*   HAVE_EDATA_SYMBOL，HAVE_END_SYMBOL以及HAVE_USCORE_END_SYMBOL等
+*   几个宏实现的。这实际上是为从汇编语言环境切换进入C语言环境做基础
+*   设施的准备。由于这对于理解GRUB的整体实现没有太大帮助，我们这里
+*   不做进一步分析。
+* 
+* 2）通过“call EXT_C(init_bios_info)”调用C语言代码init_bios_info()。
+*   这个函数实现在【grub-0.97/stage2/common.c】中。我们后面会详细分析
+*   init_bios_info()函数，这里我们暂时先只需要知道这个init_bios_info()
+*   函数是GRUB 0.97的C语言主要循环的入口，一般而言这个函数不会返回。
+* 
+* 3）如果init_bios_info()函数真的返回了，那么就会接着运行stop标号的
+*   代码，这里是调用“call	EXT_C(prot_to_real)”来从32位保护模式返回到
+*   16位实模式。我们暂时对返回实模式不感兴趣，暂时略过。接着会进入
+*   hard_stop死循环。也就是说，如果GRUB 0.97的C语言主要循环退出的话，
+*   那么GRUB 0.97就会在这里进入16位实模式下的死循环。
+* */
 
 /*
  *  This call is special...  it never returns...  in fact it should simply
@@ -819,7 +891,39 @@ ENTRY(chain_stage2)
 
 	.code32
 #endif /* STAGE1_5 */
-	
+
+/** 
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 下面我们接着分析real_to_prot，该函数实现从16位实模式切换进入32位保护模式。
+*
+* 代码执行如下步骤：
+* 1）禁止中断，因为下一步要加载GDT
+* 2）加载GDT寄存器，使其指向gdtdesc（该结构体定义见下面分析）
+* 3）使能CR0寄存器的PE位，实际上使能了保护模式
+* 4）通过ljmp指令跳转到PROT_MODE_CSEG:protcseg。
+*
+* 前面描述的通过ljmp指令跳转到PROT_MODE_CSEG:protcseg，而PROT_MODE_CSEG
+* 定义为0x8【grub-0.97/stage2/shared.h】，因此在跳转时会选择GDT的第二项
+* （也就是上面描述的32位代码段）。前面我们已经看到使能了PE所指定的保护
+* 模式，因此，这里的ljmp实际就实现了从16位实模式到32为保护模式的转换。
+* 而根据上面分析，这里使用的所有代码段和数据段都是所谓的平坦模式
+* （CS=DS=SS=ES=0），且段的基地址都是0，从而protcseg在32为保护模式下的
+* 地址偏移量和在16位实模式下的地址偏移量相同，也就是说，实际实现的跳转
+* 也就直接到了protcseg所在地址的代码处。需要说明的是，虽然在ljmp之前
+* CS=0，但是这里使用“DATA32	ljmp	$PROT_MODE_CSEG, $protcseg”之后，
+* CS已经自动被硬件改变成0x8了，从此所有的基于CS的访问都是要通过这里的
+* GDT的第二项来转换了！
+**/	
 /*
  *  These next two routines, "real_to_prot" and "prot_to_real" are structured
  *  in a very specific way.  Be very careful when changing them.
@@ -842,6 +946,42 @@ ENTRY(real_to_prot)
 	/* jump to relocation, flush prefetch queue, and reload %cs */
 	DATA32	ljmp	$PROT_MODE_CSEG, $protcseg
 
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 因此，下一步我们就可以开始分析真正的32位代码protcseg。我们一眼就可以看到这里的
+* ".code32"告诉GAS使用32位模式，而不是前面使用的16位模式来生成指令。
+*
+* 下面的代码实现了下列步骤：
+*
+* 1）设置DS=ES=FS=GS=SS这几个段寄存器的值都为相同的PROT_MODE_DSEG，该值定义为
+* 0x10【grub-0.97/stage2/shared.h】；也就是说，通过这几个段来引用数据，都会使
+* 用GDT的第三项，也就是32位数据段描述符。
+* 
+* 2）由于进入这里是通过“DATA32	call EXT_C(real_to_prot)”实现的，这里的
+* call指令还是在16位模式下执行的，因此按照下面的流程，call指令的返回地址会被
+* 放置在堆栈上；因此，为了能够从32位保护模式能够回到16位实模式，这里先将call
+* 指令产生的返回地址保存在STACKOFF处，即(0x2000 - 0x10)处，这个地址之后会得
+* 到保护不被破坏，因此能从这个地址得到保存的返回地址。
+*
+* 3）将protstack地址加载进入ESP和EBP寄存器，改用新堆栈空间（堆栈顶就在
+* protstack处）。
+*
+* 4）将保存在STACKOFF处，即(0x2000 - 0x10)处的返回地址放在新堆栈的顶端，
+* 即(%esp)处，也即是protstack处，然后清零EAX寄存器，并使用RET指令做返回。
+* 这也就是通过这个新堆栈protstack，使用“移花接木”的方式，再次回到了前面
+* 使用“DATA32	call EXT_C(real_to_prot)”的下一条指令处。但是这次回去已经
+* 有了本质的不同，因为现在已经是处于32位保护模式了！
+**/
 	/*
 	 *  The ".code32" directive only works in GAS, the GNU assembler!
 	 *  This gets out of "16-bit" mode.
@@ -2318,7 +2458,67 @@ VARIABLE(apm_bios_info)
 	.word	0	/* cseg_len */
 	.word	0	/* cseg_16_len */
 	.word	0	/* dseg_16_len */
-	
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 这些数据结构满足Intel X86架构的定义的描述GDT Descriptor和Segment Descriptor的结构）：
+*
+* 详细分析每一个GDT Entry (即每个Segment Descriptor)如下：
+*
+* 1）第一个是一个所谓的NULL Descriptor，因此所有字段都是0
+*
+* 2）第二个是32位代码段描述符，其中Segment limit字段为0xFFFFF；Base address字段
+*    为0x00000000；P字段为1（表示存在该段）；DPL字段为0（表示对应段属于Ring 0）；
+*    S (descriptor type) flag字段为1，表示该段为代码或者数据段（不是系统段）；
+*    Type字段为0xA，表示可读可执行的（代码段）；G (granularity) flag为1，表示以
+*    4KB为单位解释Segment limit字段的值（因此该代码段的limit所限定的空间大小实际
+*    为4GB，也就是整个32位地址空间）；L (64-bit code segment) flag字段为0，因此
+*    该段为32位代码段（非64位代码段）；D/B (default operation size/default stack 
+*    pointer size and/or upper bound) flag标志位为1，因此该段默认对应的操作是
+*    “32-bit addresses and 32-bit or 8-bit operands are assumed”。
+*
+* 3）第三个是32位数据段描述符，其中Segment limit字段为0xFFFFF；Base address字段
+*    为0x00000000；P字段为1（表示存在该段）；DPL字段为0（表示对应段属于Ring 0）；
+*    S (descriptor type) flag字段为1，表示该段为代码或者数据段（不是系统段）；
+*    Type字段为0x2，表示可读可写的（数据段）；G (granularity) flag为1，表示以
+*    4KB为单位解释Segment limit字段的值（因此该代码段的limit所限定的空间大小实际
+*    为4GB，也就是整个32位地址空间）；L (64-bit code segment) flag字段为0，因此
+*    该段为32位数据段（非64位代码段）；D/B (default operation size/default stack 
+*    pointer size and/or upper bound) flag标志位为1，因此该段默认对应的操作是
+*    “32-bit addresses and 32-bit or 8-bit operands are assumed”。
+*
+* 4）第四个是16位代码段描述符，其中Segment limit字段为0xFFFF；Base address字段
+*    为0x0000；P字段为1（表示存在该段）；DPL字段为0（表示对应段属于Ring 0）；
+*    S (descriptor type) flag字段为1，表示该段为代码或者数据段（不是系统段）；
+*    Type字段为0xE，表示可读可执行的且属于conforming的（代码段）；G (granularity) 
+*    flag为0，表示以1字节为单位解释Segment limit字段的值（因此该代码段的limit
+*    所限定的空间大小实际为64KB，也就是整个16位地址空间）；L (64-bit code segment)
+*    flag字段为0，因此该段为16位代码段（非64位代码段）；D/B (default operation 
+*    size/default stack pointer size and/or upper bound) flag标志位为0，因此该段
+*    默认对应的操作是“16-bit addresses and 16-bit or 8-bit operands are assumed”。
+*     
+* 5）第五个是16位数据段描述符，其中Segment limit字段为0xFFFF；Base address字段
+*    为0x0000；P字段为1（表示存在该段）；DPL字段为0（表示对应段属于Ring 0）；
+*    S (descriptor type) flag字段为1，表示该段为代码或者数据段（不是系统段）；
+*    Type字段为0x2，表示可读可写的（数据段）；G (granularity) flag为0，表示以
+*    1字节为单位解释Segment limit字段的值（因此该代码段的limit所限定的空间大小
+*    实际为64KB，也就是整个16位地址空间）；L (64-bit code segment) flag字段为0，
+*    因此该段为16位数据段（非64位代码段）；D/B (default operation size/default 
+*    stack pointer size and/or upper bound) flag标志位为0，因此该段默认对应的
+*    操作是“16-bit addresses and 16-bit or 8-bit operands are assumed”。
+*    
+* 6）Gdtdesc描述的GDT总共有5项，每项8字节，因此占40字节，从而limit则为40-1=39=0x27；
+*    且GDT的地址就是gdt。
+**/	
 /*
  * This is the Global Descriptor Table
  *

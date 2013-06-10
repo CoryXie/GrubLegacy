@@ -109,7 +109,21 @@ static const unsigned char dhcprequest[] =
 
 static unsigned short ipchksum (unsigned short *ip, int len);
 static unsigned short udpchksum (struct iphdr *packet);
-
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê6ÔÂ4ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+* 
+* ¸Ãº¯ÊýÊµÏÖ´òÓ¡ÍøÂçÅäÖÃµÄ¹¦ÄÜ¡£Ê×ÏÈÊÇµ÷ÓÃeth_probe()Ì½²âÍø¿¨£¬½Ó×ÅÖ÷ÒªÊÇÊä³öÍøÂç
+* IPµØÖ·£¬ÍøÂçµØÖ·ÑÚÂë£¬·þÎñÆ÷µØÖ·£¬Íø¹ØµØÖ·µÈÐÅÏ¢¡£
+*/
 void
 print_network_configuration (void)
 {
@@ -126,7 +140,20 @@ print_network_configuration (void)
     }
 }
 
-
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê6ÔÂ4ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+* 
+* ¸Ãº¯ÊýÊµÏÖ·µ»ØÍøÂçµØÖ·ÑÚÂëµÄ¹¦ÄÜ¡£
+*/
 /**************************************************************************
 DEFAULT_NETMASK - Return default netmask for IP address
 **************************************************************************/
@@ -141,7 +168,31 @@ default_netmask (void)
   else
     return (htonl (0xffffff00));
 }
-
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê6ÔÂ4ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+* 
+* ¸Ãº¯ÊýÊµÏÖ·µ»ØÅäÖÃÍøÂç½Ó¿ÚµÄ¹¦ÄÜ¡£²ÎÊýipÎªIPµØÖ·£»²ÎÊýsmÎªÍøÂçµØÖ·ÑÚÂë£»
+* ²ÎÊýgwÎªÍø¹ØµØÖ·£»²ÎÊýsvrÎª·þÎñÆ÷µØÖ·¡£Ö´ÐÐÈçÏÂ²½Öè:
+* 
+* 1)Èç¹ûsm·Ç¿Õ£¬Ôòµ÷ÓÃinet_aton½«sm×ª»»Îªin_addrÀàÐÍ£¬²¢ÉèÖÃnetmaskÈ«¾Ö±äÁ¿¡£
+* 2)Èç¹ûip·Ç¿Õ£¬Ôòµ÷ÓÃinet_aton½«ip×ª»»Îªin_addrÀàÐÍ£¬´æÔÚÓÚÈ«¾Ö±äÁ¿µÄ
+*   arptable[ARP_CLIENT].ipaddrÖÐ£¬ÇÒÈç¹û´ËÊ±netmaskÈ«¾Ö±äÁ¿»¹ÊÇÃ»ÓÐÉèÖÃ£¬Ôòµ÷ÓÃ
+*   default_netmaskÉèÖÃnetmaskÈ«¾Ö±äÁ¿ÎªÄ¬ÈÏÑÚÂë¡£
+* 3)Èç¹ûgw·Ç¿Õ£¬Ôòµ÷ÓÃinet_aton½«gw×ª»»Îªin_addrÀàÐÍ£¬´æÔÚÓÚÈ«¾Ö±äÁ¿µÄ
+*   arptable[ARP_GATEWAY].ipaddrÖÐ£¬²¢Çå¿Õarptable[ARP_GATEWAY].node¡£
+* 4)Èç¹ûsvr·Ç¿Õ£¬Ôòµ÷ÓÃinet_aton½«svr×ª»»Îªin_addrÀàÐÍ£¬´æÔÚÓÚÈ«¾Ö±äÁ¿µÄ
+*   arptable[ARP_SERVER].ipaddrÖÐ£¬²¢Çå¿Õarptable[ARP_SERVER].node¡£
+* 5)¸ù¾Ýnetmask | arptable[ARP_CLIENT].ipaddr.s_addrÀ´ÉèÖÃnetwork_readyÈ«¾Ö±äÁ¿¡£
+*/
 /* ifconfig - configure network interface.  */
 int
 ifconfig (char *ip, char *sm, char *gw, char *svr)
@@ -190,7 +241,30 @@ ifconfig (char *ip, char *sm, char *gw, char *svr)
   return 1;
 }
 
-
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê6ÔÂ4ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+* 
+* ¸Ãº¯ÊýÊµÏÖ·¢ËÍÒ»¸öUDPÊý¾Ý±¨µÄ¹¦ÄÜ¡£²ÎÊýdestipÎªÄ¿±êIPµØÖ·£»²ÎÊýsrcsockÎªÔ´¶Ë
+* socketºÅ£»²ÎÊýdestsockÎªÄ¿µÄ¶ËsocketºÅ£»²ÎÊýlenÎªÊý¾Ý±¨³¤¶È£»²ÎÊýbufÎªÊý¾Ý±¨
+* Êý¾Ý»º³å(Ç°Ãæ²¿·ÖÎªIPÍ·ºÍUDPÍ·£¬ºóÃæ²ÅÊÇÊµ¼ÊÊý¾Ý)¡£¾ßÌåÍê³ÉÁËÏÂÁÐ²½Öè:
+*
+* 1) ½«bufÇ¿ÖÆ×ª»»Îªiphdr½á¹¹£¬È»ºóÌî³äiphdr½á¹¹£¬¹¹ÔìIPÍ·ÐÅÏ¢¡£
+* 2) ½«buf+sizeof (struct iphdr)Ç¿ÖÆ×ª»»Îªudphdr,È»ºóÌî³ä£¬¹¹ÔìUDPÍ·ÐÅÏ¢¡£
+* 3) Èç¹ûÄ¿µÄµØÖ·Îª¹ã²¥µØÖ·£¬ÄÇÃ´Ö±½Óµ÷ÓÃeth_transmit·¢ËÍ¹ã²¥±¨ÎÄ¡£
+* 4) ·ñÔò£¬Èç¹ûÄ¿µÄµØÖ·²»ÔÚµ±Ç°×ÓÍø£¬ÄÇÃ´¾Í½«Ä¿µÄµØÖ·ÉèÖÃÎªÍø¹ØµØÖ·£»
+* 5) Èç¹û»¹Ã»ÓÐ×ö¹ýARPÇëÇó£¬ÄÇÃ´ÏÈ½øÐÐARPÇëÇó(¹¹Ôìarprequest½á¹¹²¢Ê¹ÓÃeth_transmit
+*    ×ö¹ã²¥)¡£
+* 6) ×îºóÔÙµ÷ÓÃeth_transmit½øÐÐÊµ¼ÊµÄÊý¾Ý´«Êä¡£
+*/
 /**************************************************************************
 UDP_TRANSMIT - Send a UDP datagram
 **************************************************************************/
@@ -292,7 +366,65 @@ udp_transmit (unsigned long destip, unsigned int srcsock,
   
   return 1;
 }
-
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê6ÔÂ4ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+* 
+* ¸Ãº¯ÊýÊµÏÖTFTPÏÂÔØBOOTPÊý¾Ý»òÕßÄÚºËÓ³ÏñµÄ¹¦ÄÜ¡£
+*
+* TFTPµÄ»ù±¾½éÉÜÈçÏÂ(http://en.wikipedia.org/wiki/Trivial_File_Transfer_Protocol):
+*
+* Ð¡ÐÍÎÄ¼þ´«ÊäÐ­Òé²¿·Ö»ùÓÚ¸üÔçÆÚµÄÎÄ¼þ´«ÊäÐ­Òé£¬ÎÄ¼þ´«ÊäÐ­ÒéÊÇÍ¨ÓÃ·Ö×éÐ­Òé
+*£¨PUP Protocol£©ÖÐµÄÒ»²¿·Ö¡£
+*
+* Ð¡ÐÍÎÄ¼þ´«ÊäÐ­ÒéµÄÒ»Ð©ÏêÏ¸×ÊÁÏ£º
+*
+* - Ê¹ÓÃUDP£¨¶Ë¿Ú69£©×÷ÎªÆä´«ÊäÐ­Òé£¨²»ÏñFTPÊ¹ÓÃTCP¶Ë¿Ú21£©¡£
+* - ²»ÄÜÁÐ³öÄ¿Â¼ÄÚÈÝ¡£
+* - ÎÞÑéÖ¤»ò¼ÓÃÜ»úÖÆ¡£
+* - ±»ÓÃÓÚÔÚÔ¶³Ì·þÎñÆ÷ÉÏ¶ÁÈ¡»òÐ´ÈëÎÄ¼þ¡£
+* - Ö§³ÖÈýÖÖ²»Í¬µÄ´«ÊäÄ£Ê½£º"netascii","octet"ºÍ"mail"£¬Ç°Á½ÖÖ·ûºÏFTPÐ­ÒéÖÐµÄ
+*   "ASCII"ºÍ"image£¨binary£©"Ä£Ê½£»µÚÈýÖÖ´ÓÀ´ºÜÉÙÊ¹ÓÃ£¬Ä¿Ç°ÒÑ¾­·ÏÆú¡£
+*
+* ÒòÎªÐ¡ÐÍÎÄ¼þ´«ÊäÐ­ÒéÊ¹ÓÃUDPÐ­¶¨£¬¾Í±ØÐë×Ô¼ºÖ§Ô®´«ÊäºÍ»á»°µÄ¿ØÖÆ¡£Ã¿¸öÍ¨¹ýTFTP
+* ´«ÊäµÄÎÄ¼þ¹¹³ÉÁËÒ»¸ö¶ÀÁ¢µÄ½»»»¡£´Ë´«Êä±íÏÖÎª²½Ëø£¬ÈÎºÎÊ±¼äÍøÂçÉÏ½ö½ö´«µÝÒ»¸ö°ü
+*£¨Ò»¸öÊý¾Ý¿é»òÒ»¸öÊ×²¿È·ÈÏ£©¡£ÓÉÓÚÈ±ÉÙ´°¿ÚÇÐ»»¼¼Êõ£¬TFTPÔÚÓÐºÜ¶àÇ±ÔÚÁ¬½ÓµÄÇé¿ö
+* ÏÂ½öÌá¹©½ÏµÍµÄÍÌÍÂÁ¿¡£
+*
+* ÓÉÓÚÐ¡ÐÍÎÄ¼þ´«ÊäÐ­ÒéÈ±ÉÙ°²È«ÐÔ£¬ÔÚ¿ª·ÅÊ½ÒòÌØÍøÉÏ´«Êä·Ç³£Î£ÏÕ£¬ËùÒÔÆÕ±é½ö½öÓÃ
+* ÓÚË½ÈË±¾µØÍøÂç¡£
+* 
+* Ð¡ÐÍÎÄ¼þ´«ÊäÐ­Òé»á»°µÄÏêÏ¸×ÊÁÏ:
+*
+* 1) ³õÊ¼»¯Ö÷»úAËÍÒ»¸ö¶ÁÇëÇó£¨RRQ£©»òÐ´ÇëÇó£¨WRQ£©°ü¸øÖ÷»úB£¬°üº¬ÁËÎÄ¼þÃûºÍ´«ÊäÄ£Ê½¡£
+* 2) BÏòA·¢Ò»¸öACK°üÓ¦´ð£¬Í¬Ê±Ò²Í¨ÖªÁËAÆäÓàËÍÍùB°üÓ¦¸Ã·¢ËÍµÄ¶Ë¿ÚºÅ¡£
+* 3) Ô´Ö÷»úÏòÄ¿µÄÖ÷»úËÍ±à¹ýºÅµÄÊý¾Ý°ü£¬³ýÁË×îºóÒ»¸ö¶¼Ó¦¸Ã°üº¬Ò»¸öÈ«³ß´çµÄÊý¾Ý¿é¡£
+*    Ä¿µÄÖ÷»úÓÃ±àºÅµÄACK°üÓ¦´ðËùÓÐµÄÊý¾Ý°ü¡£
+* 4) ×îÖÕµÄÊý¾Ý°ü±ØÐë°üº¬ÉÙÓÚ×î´ó³ß´çµÄÊý¾Ý¿éÒÔ±íÃ÷ÕâÊÇ×îºóÒ»¸ö°ü¡£Èç¹û±»´«ÊäÎÄ
+*    ¼þÕýºÃÊÇ³ß´ç¿éµÄÕûÊý±¶£¬Ô´Ö÷»ú×îºóËÍµÄÊý¾Ý°ü¾ÍÊÇ0×Ö½ÚµÄ¡£
+*
+* °´ÕÕÉÏÃæµÄËµÃ÷£¬ÎÒÃÇ¿ÉÒÔ·ÖÎö¸Ãº¯ÊýÊµÏÖµÄÏ¸½ÚÈçÏÂ:
+*
+* 1) Ê×ÏÈ¹¹ÔìÒ»¸ötftpreq_t½á¹¹£¬ÀïÃæ°üº¬ÇëÇóÀàÐÍTFTP_RRQ£¬¼´Îª¶ÁÇëÇó£¨RRQ£©£¬ÒÔ¼°
+*    Ê¹ÓÃgrub_sprintfÉú³ÉµÄ"%s%coctet%cblksize%c%d"¸ñÊ½µÄrrqÄÚÈÝ£¬°üÀ¨Ö¸¶¨µÄname
+*    ºÍ´«ÊäÄ£Ê½octet£¬ÒÔ¼°´«ÊäµÄblksizeÎªTFTP_MAX_PACKET¡£
+* 2) µ÷ÓÃudp_transmit¸øTFTP_PORT£¬¼´69¶Ë¿Ú·¢ËÍÇëÇó¸øARP_SERVER¡£
+* 3) ½øÈëÑ­»·µÈ´ý´Ó·þÎñÆ÷µÄACK°üÓ¦´ð(tftp_tÀàÐÍµÄUDP±¨ÎÄ)¡£
+* 4) Èç¹û³ö´í£¬¼´opcodeÎªTFTP_ERROR£¬ÔòÌø³öÑ­»·¡£
+* 5) Èç¹ûÕý³£opcodeÎªTFTP_OACK£¬Ôò½âÎö³ö·þÎñÆ÷¶Ë¾ö¶¨µÄºóÃæÒª·¢ËÍµÄpacketsize¡£
+* 6) Èç¹ûÕý³£opcodeÎªTFTP_DATA£¬Ôò½ÓÊÕÊý¾Ý£¬²¢°´ÕÕÇ°Ò»²½µÃ³öµÄpacketsize´¦Àí¡
+*    Õâ¾ÍÒªµ÷ÓÃ²ÎÊýfncÖ¸¶¨µÄcallbackÀ´´¦Àí¡£
+* 7) ¹¹ÔìÒ»¸öTFTP_ACK,²¢µ÷ÓÃudp_transmit´«»Ø¸ø·þÎñÆ÷¶Ë¡£
+* 8) Ñ­»·ÖÁ3)¡£
+*/
 /**************************************************************************
 TFTP - Download extended BOOTP data, or kernel image
 **************************************************************************/
@@ -470,6 +602,52 @@ tftp (const char *name, int (*fnc) (unsigned char *, int, int, int))
   return 0;
 }
 
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê6ÔÂ4ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+* 
+* ¸Ãº¯ÊýÊµÏÖÊ¹ÓÃRARP»ñÈ¡±¾»úIPµØÖ·ºÍ¸ºÔØÐÅÏ¢µÄ¹¦ÄÜ¡£
+*
+* ¹ØÓÚRARPÐ­Òé(·´ÏòµØÖ·×ª»»Ð­Òé)µÄ½éÉÜÈçÏÂ(http://baike.baidu.cn/view/1478464.htm):
+*
+* ·´ÏòµØÖ·×ª»»Ð­Òé¾ÍÊÇ½«¾ÖÓòÍøÖÐÄ³¸öÖ÷»úµÄÎïÀíµØÖ·×ª»»ÎªIPµØÖ·£¬±ÈÈç¾ÖÓòÍøÖÐÓÐ
+* Ò»Ì¨Ö÷»úÖ»ÖªµÀÎïÀíµØÖ·¶ø²»ÖªµÀIPµØÖ·£¬ÄÇÃ´¿ÉÒÔÍ¨¹ýRARPÐ­Òé·¢³öÕ÷Çó×ÔÉíIPµØÖ·
+* µÄ¹ã²¥ÇëÇó£¬È»ºóÓÉRARP·þÎñÆ÷¸ºÔð»Ø´ð¡£RARPÐ­Òé¹ã·ºÓÃÓÚ»ñÈ¡ÎÞÅÌ¹¤×÷Õ¾µÄIPµØÖ·¡£
+*
+* ·´ÏòµØÖ·×ª»»Ð­Òé£¨RARP£©ÔÊÐí¾ÖÓòÍøµÄÎïÀí»úÆ÷´ÓÍø¹Ø·þÎñÆ÷µÄ ARP ±í»òÕß»º´æÉÏ
+* ÇëÇóÆä IP µØÖ·¡£ÍøÂç¹ÜÀíÔ±ÔÚ¾ÖÓòÍøÍø¹ØÂ·ÓÉÆ÷Àï´´½¨Ò»¸ö±íÒÔÓ³ÉäÎïÀíµØÖ·£¨MAC£©
+* ºÍÓëÆä¶ÔÓ¦µÄ IP µØÖ·¡£µ±ÉèÖÃÒ»Ì¨ÐÂµÄ»úÆ÷Ê±£¬Æä RARP ¿Í»§»ú³ÌÐòÐèÒªÏòÂ·ÓÉÆ÷ÉÏ
+* µÄ RARP ·þÎñÆ÷ÇëÇóÏàÓ¦µÄ IP µØÖ·¡£¼ÙÉèÔÚÂ·ÓÉ±íÖÐÒÑ¾­ÉèÖÃÁËÒ»¸ö¼ÇÂ¼£¬ RARP 
+* ·þÎñÆ÷½«»á·µ»Ø IP µØÖ·¸ø»úÆ÷£¬´Ë»úÆ÷¾Í»á´æ´¢ÆðÀ´ÒÔ±ãÈÕºóÊ¹ÓÃ¡£
+*
+* RARPÊ¹ÓÃÓëARPÏàÍ¬µÄ±¨Í·½á¹¹£¬×÷ÓÃÓëARPÏà·´¡£ÆäÒòÎª½ÏÏÞÓÚIPµØÖ·µÄÔËÓÃÒÔ¼°ÆäËû
+* µÄÒ»Ð©È±µã£¬Òò´Ë½¥Îª¸üÐÂµÄBOOTP»òDHCPËùÈ¡´ú¡£
+*
+* RARPµÄ¹¤×÷Ô­ÀíÈçÏÂ:
+*
+* 1) ¸øÖ÷»ú·¢ËÍÒ»¸ö±¾µØµÄRARP¹ã²¥£¬ÔÚ´Ë¹ã²¥°üÖÐ£¬ÉùÃ÷×Ô¼ºµÄMACµØÖ·²¢ÇÒÇëÇóÈÎºÎ
+*    ÊÕµ½´ËÇëÇóµÄRARP·þÎñÆ÷·ÖÅäÒ»¸öIPµØÖ·£»
+* 2) ±¾µØÍø¶ÎÉÏµÄRARP·þÎñÆ÷ÊÕµ½´ËÇëÇóºó£¬¼ì²éÆäRARPÁÐ±í£¬²éÕÒ¸ÃMACµØÖ·¶ÔÓ¦µÄIP
+*    µØÖ·£»
+* 3) Èç¹û´æÔÚ£¬RARP·þÎñÆ÷¾Í¸øÔ´Ö÷»ú·¢ËÍÒ»¸öÏìÓ¦Êý¾Ý°ü²¢½«´ËIPµØÖ·Ìá¹©¸ø¶Ô·½Ö÷»ú
+*    Ê¹ÓÃ£»
+* 4) Èç¹û²»´æÔÚ£¬RARP·þÎñÆ÷¶Ô´Ë²»×öÈÎºÎµÄÏìÓ¦£»
+* 5) Ô´Ö÷»úÊÕµ½´ÓRARP·þÎñÆ÷µÄÏìÓ¦ÐÅÏ¢£¬¾ÍÀûÓÃµÃµ½µÄIPµØÖ·½øÐÐÍ¨Ñ¶£»Èç¹ûÒ»Ö±Ã»ÓÐ
+*    ÊÕµ½RARP·þÎñÆ÷µÄÏìÓ¦ÐÅÏ¢£¬±íÊ¾³õÊ¼»¯Ê§°Ü¡£
+*
+* ¸ù¾ÝÇ°ÃæµÄ½éÉÜ£¬ÎÒÃÇ¿ÉÒÔ·ÖÎö¸Ãº¯ÊýµÄÊµÏÖÈçÏÂ:
+*
+* 1) ¹¹Ôìarprequest½á¹¹£¬Ö¸¶¨RARP_REQUEST¡£
+* 2) Ñ­»·µ÷ÓÃeth_transmitÀ´´«ÊäÕâ¸öRARPÇëÇó£¬²¢µ÷ÓÃawait_replyÀ´µÈ´ý»Ø¸´¡£
+*/
 /**************************************************************************
 RARP - Get my IP address and load information
 **************************************************************************/
@@ -524,7 +702,36 @@ rarp (void)
 
   return 0;
 }
-
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê6ÔÂ4ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+* 
+* ¸Ãº¯ÊýÊµÏÖÊ¹ÓÃBOOTP»ñÈ¡±¾»úIPµØÖ·ºÍ¸ºÔØÐÅÏ¢µÄ¹¦ÄÜ¡£
+*
+* ¹ØÓÚBOOTPÐ­ÒéµÄ½éÉÜÈçÏÂ:
+*
+* ¸ÃÐ­ÒéÖ÷ÒªÓÃÓÚÓÐÎÞÅÌ¹¤×÷Õ¾µÄ¾ÖÓòÍøÖÐ£¬¿Í»§¶Ë»ñÈ¡IPµØÖ·µÄ¹ý³ÌÈçÏÂ£ºÊ×ÏÈ£¬ÓÉ
+* BOOTPÆô¶¯´úÂëÆô¶¯¿Í»§¶Ë£¬Õâ¸öÊ±ºò¿Í»§¶Ë»¹Ã»ÓÐIPµØÖ·£¬Ê¹ÓÃ¹ã²¥ÐÎÊ½ÒÔIPµØÖ·
+* 255.255.255.255ÏòÍøÂçÖÐ·¢³öIPµØÖ·²éÑ¯ÒªÇó¡£½Ó×Å£¬ÔËÐÐBOOTPÐ­ÒéµÄ·þÎñÆ÷½ÓÊÕ
+* µ½Õâ¸öÇëÇó£¬»á¸ù¾ÝÇëÇóÖÐÌá¹©µÄMACµØÖ·ÕÒµ½¿Í»§¶Ë£¬²¢·¢ËÍÒ»¸öº¬ÓÐIPµØÖ·¡¢·þÎñ
+* Æ÷IPµØÖ·¡¢Íø¹ØµÈÐÅÏ¢µÄFOUNDÖ¡¡£×îºó£¬¿Í»§¶Ë»á¸ù¾Ý¸ÃFOUNDÖ¡À´Í¨¹ý×¨ÓÃTFTP·þ
+* ÎñÆ÷ÏÂÔØÆô¶¯¾µÏñÎÄ¼þ£¬Ä£Äâ³É´ÅÅÌÆô¶¯¡£
+*
+* ¸ù¾ÝÉÏÃæµÄ½éÉÜ£¬ÎÒÃÇ¿ÉÒÔ·ÖÎö±¾º¯ÊýÊµÏÖÈçÏÂ:
+*
+* 1) ¹¹Ôìbootpip_t½á¹¹£¬Ö¸¶¨BOOTP_REQUESTÇëÇó¡£
+* 2) ÔÚÑ­»·ÄÚ²¿Ö´ÐÐÏÂÃæµÄ²½Öè: 
+*    a) µ÷ÓÃudp_transmit·¢ËÍBOOTP_REQUEST¹ã²¥ÇëÇó¡£
+*    b) µ÷ÓÃawait_replyµÈ´ý·þÎñÆ÷ÏìÓ¦¡£
+*/
 /**************************************************************************
 BOOTP - Get my IP address and load information
 **************************************************************************/
@@ -679,7 +886,20 @@ bootp (void)
   /* Timeout.  */
   return 0;
 }
-
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê6ÔÂ4ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+* 
+* ¸Ãº¯ÊýÊµÏÖ¼ÆËãUDP±¨µÄChecksumµÄ¹¦ÄÜ(Ê¹ÓÃ»ã±àÊµÏÖ)¡£
+*/
 /**************************************************************************
 UDPCHKSUM - Checksum UDP Packet (one of the rare cases when assembly is
             actually simpler...)
@@ -706,7 +926,20 @@ dosum (unsigned short *start, unsigned int len, unsigned short *sum)
      : "ax", "cc"
      );
 }
-
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê6ÔÂ4ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+* 
+* ¸Ãº¯ÊýÊµÏÖ¼ÆËãUDP±¨µÄChecksumµÄ¹¦ÄÜ(Ê¹ÓÃdosumÊµÏÖ)¡£
+*/
 /* UDP sum:
  * proto, src_ip, dst_ip, udp_dport, udp_sport, 2*udp_len, payload
  */
@@ -731,7 +964,20 @@ udpchksum (struct iphdr *packet)
   /* take one's complement */
   return ~rval;
 }
-
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê6ÔÂ4ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+* 
+* ¸Ãº¯ÊýµÈ´ýÍøÂ·»ØÓ¦µÄ¹¦ÄÜ¡£¸ù¾ÝÏìÓ¦µÄ°üÀàÐÍptype£¬·Ö±ð´¦Àí¶ÔÓ¦µÄÇëÇóÏìÓ¦¡£
+*/
 /**************************************************************************
 AWAIT_REPLY - Wait until we get a response for our request
 **************************************************************************/
@@ -954,7 +1200,20 @@ await_reply (int type, int ival, void *ptr, int timeout)
   
   return 0;
 }
-
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê6ÔÂ4ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+* 
+* ¸Ãº¯ÊýÊµÏÖ½âÂëRFC1533Í·²¿µÄ¹¦ÄÜ¡£
+*/
 /**************************************************************************
 DECODE_RFC1533 - Decodes RFC1533 header
 **************************************************************************/
@@ -1109,7 +1368,20 @@ decode_rfc1533 (unsigned char *p, int block, int len, int eof)
   /* Proceed with next block.  */
   return -1;
 }
-
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê6ÔÂ4ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+* 
+* ¸Ãº¯ÊýChecksum IP HeaderµÄ¹¦ÄÜ¡£
+*/
 /**************************************************************************
 IPCHKSUM - Checksum IP Header
 **************************************************************************/
@@ -1128,7 +1400,20 @@ ipchksum (unsigned short *ip, int len)
 }
 
 #define TWO_SECOND_DIVISOR (2147483647l/TICKS_PER_SEC)
-
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê6ÔÂ4ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+* 
+* ¸Ãº¯ÊýÊµÏÖRFC2131Ë¯ÃßµÄ¹¦ÄÜ¡£
+*/
 /**************************************************************************
 RFC2131_SLEEP_INTERVAL - sleep for expotentially longer times
 **************************************************************************/
@@ -1155,7 +1440,20 @@ rfc2131_sleep_interval (int base, int exp)
   tmo = (base << exp) + (TICKS_PER_SEC - (seed / TWO_SECOND_DIVISOR));
   return tmo;
 }
-
+/**
+* @topic ±¾×¢ÊÍµÃµ½ÁË"ºË¸ß»ù"¿Æ¼¼ÖØ´ó×¨Ïî2012Äê¿ÎÌâ¡°¿ªÔ´²Ù×÷ÏµÍ³ÄÚºË·ÖÎöºÍ°²È«ÐÔÆÀ¹À
+*£¨¿ÎÌâ±àºÅ£º2012ZX01039-004£©¡±µÄ×ÊÖú¡£
+*
+* @group ×¢ÊÍÌí¼Óµ¥Î»£ºÇå»ª´óÑ§¡ª¡ª03ÈÎÎñ£¨LinuxÄÚºËÏà¹ØÍ¨ÓÃ»ù´¡Èí¼þ°ü·ÖÎö£©³Ðµ£µ¥Î»
+*
+* @author ×¢ÊÍÌí¼ÓÈËÔ±£ºÐ»ÎÄÑ§
+*
+* @date ×¢ÊÍÌí¼ÓÈÕÆÚ£º2013Äê6ÔÂ4ÈÕ
+*
+* @details ×¢ÊÍÏêÏ¸ÄÚÈÝ:
+* 
+* ¸Ãº¯ÊýÊµÏÖ¹Ø±ÕÍøÂ·½Ó¿ÚµÄ¹¦ÄÜ¡£
+*/
 /**************************************************************************
 CLEANUP - shut down networking
 **************************************************************************/

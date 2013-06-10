@@ -53,7 +53,27 @@ struct fat_superblock
 #define NAME_BUF  ( FSYS_BUF + 29184 )	/* Filename buffer (833 bytes) */
 
 #define FAT_CACHE_SIZE 2048
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现计算参数word的log2值的功能。通过使用内联汇编，用bsfl指令实现。
+*
+* intel汇编指令：bsf oprd1, oprd2;  顺向位扫描(bit scan forward)  
+*
+* 从右向左（从位0-->位15或位31）扫描字或双字操作数oprd2中第一个为"1"的位，并把
+* 扫描到的第一个为'1'的位的位号送给操作数oprd1。
+*
+* AT&T格式汇编指令bsfl类似bsf，只是源操作数和目的操作数顺序相反。
+*/
 static __inline__ unsigned long
 log2 (unsigned long word)
 {
@@ -62,7 +82,23 @@ log2 (unsigned long word)
 	   : "r" (word));
   return word;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现mount FAT文件系统的功能。通过读取MBR中的BPB的信息，解析跟FAT文件系统
+* 相关的信息，如果解析到不符合FAT文件系统规定的信息，则返回0；否则，将一些关键信
+* 息存储在一个Supper Block结构体中，称为FAT_SUPER (fat_superblock)，并返回1。这
+* 就为后面的针对该磁盘文件系统的操作提供了基本信息。
+*/
 int
 fat_mount (void)
 {
@@ -193,7 +229,20 @@ fat_mount (void)
   FAT_SUPER->cached_fat = - 2 * FAT_CACHE_SIZE;
   return 1;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现读取FAT文件系统的功能。
+*/
 int
 fat_read (char *buf, int len)
 {
@@ -287,7 +336,20 @@ fat_read (char *buf, int len)
     }
   return errnum ? 0 : ret;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现FAT文件系统的dir操作功能。
+*/
 int
 fat_dir (char *dirname)
 {

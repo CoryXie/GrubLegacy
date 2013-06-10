@@ -74,6 +74,25 @@
 #define DIRBLKSIZ	DEV_BSIZE
 #define	MAXNAMLEN	255
 
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年6月3日
+*
+* @details 注释详细内容:
+* 
+* 该结构代表目录项结构。
+*
+* @d_ino: 目录项的inode号。
+* @d_reclen: 本目录项的长度。
+* @d_namlen: 本目录项的名字长度。
+* @d_name: 目录项的名字字符串。
+*/
 struct direct
   {
     u_int d_ino;		/* inode number of entry */

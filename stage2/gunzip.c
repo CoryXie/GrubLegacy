@@ -158,21 +158,63 @@ static void initialize_tables (void);
  */
 
 static unsigned long linalloc_topaddr;
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现线性分配内存的功能。从linalloc_topaddr开始，向下减去参数size指定的
+* 大小，并将linalloc_topaddr按照字对齐到这个位置。返回新的linalloc_topaddr的值
+* 就是可以使用的内存空间。
+*/
 static void *
 linalloc (int size)
 {
   linalloc_topaddr = (linalloc_topaddr - size) & ~3;
   return (void *) linalloc_topaddr;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现线性内存分配器的初始化的功能。实际就是将linalloc_topaddr设置为
+* mbi.mem_upper以上1MB的位置。
+*/
 static void
 reset_linalloc (void)
 {
   linalloc_topaddr = RAW_ADDR ((mbi.mem_upper << 10) + 0x100000);
 }
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现gunzip的内部变量交换的功能。
+*/
 /* internal variable swap function */
 static void
 gunzip_swap_values (void)
@@ -195,7 +237,20 @@ gunzip_swap_values (void)
   gzip_fsmax = itmp;
 }
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现去掉变长头部字段的gunzip的内部的功能。
+*/
 /* internal function for eating variable-length header fields */
 static int
 bad_field (int len)
@@ -1061,7 +1116,20 @@ init_dynamic_block (void)
   block_len++;
 }
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现gunzip的解压缩数据块的功能。
+*/
 static void
 get_new_block (void)
 {
@@ -1096,7 +1164,20 @@ get_new_block (void)
     init_dynamic_block ();
 }
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现gunzip的解压缩数据块的功能。
+*/
 static void
 inflate_window (void)
 {
@@ -1158,7 +1239,20 @@ inflate_window (void)
   /* XXX do CRC calculation here! */
 }
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现gunzip的内部变量初始化的功能。
+*/
 static void
 initialize_tables (void)
 {
@@ -1177,7 +1271,20 @@ initialize_tables (void)
   reset_linalloc ();
 }
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月10日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现使用gunzip的解压缩读入的功能。
+*/
 int
 gunzip_read (char *buf, int len)
 {

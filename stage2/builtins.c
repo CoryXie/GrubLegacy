@@ -48,6 +48,53 @@
 #ifdef USE_MD5_PASSWORDS
 # include <md5.h>
 #endif
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容: 内建命令实现
+* 
+* 下面我们来分析一下GRUB 0.97的内建命令实现。实际上，在GRUB 0.97中，命令的输入
+* 可以来自几个地方：
+*
+* 1）编译时，在configure的时候，通过使用"--enable-preset-menu=FILE"参数，就会
+*    从这个指定的文件读入一个字符串，并将这个字符串使用"#define PRESET_MENU_STRING"
+*    的方式定义到config.h中。这个文件中可以包含一些菜单以及命令，实际上和下面一
+*    种在运行时指定的配置文件一样，只是这个预设的preset-menu是在编译时固化的，
+*    而不是可以改变的。
+*
+* 2）使用/boot/grub/menu.lst，在其中输入支持的命令和菜单选项，其中就会包含GRUB 
+*    0.97可以支持的内建命令。
+*
+* 3）在没有以上来源时，或者在运行菜单界面而用户使用了'c'命令，都会自动进入命令
+*    行界面，在这个界面中可以输入用户命令。
+*
+* 无论这些命令来源如何，实际的实现却都一样：
+*
+* 对于一个代表一条命令的字符串，包含命令名称本身以及命令的输入参数，首先使用
+* find_command()预处理，返回到struct builtin *builtin指向的命令结构；然后使用
+* skip_to (1, cmdbuf)这样的处理来获得命令的参数；最后使用(builtin->func) 
+* (arg, BUILTIN_CMDLINE)这样的方式调用命令。
+*
+* 每一条命令都是由定义于【grub-0.97/stage2/shared.h】中的struct builtin来定义的。
+*
+* struct builtin其中每一项的意义如下：
+*
+* -Name为命令的名字，也是用于比较的关键字
+* -Func为命令的执行函数，每个命令都对应一个实现
+* -Flags为命令的属性标志
+* -short_doc和long_doc分别为这个命令的简单描述和详细介绍，用于在help命令时显示
+* 对某个命令的描述。
+*
+* 所有的命令被放置到【grub-0.97/stage2/builtins.c】中一个全局的数组struct 
+* builtin *builtin_table[]中。
+*/
 
 /* The type of kernel loaded.  */
 kernel_t kernel_type;
@@ -82,6 +129,22 @@ static unsigned short bios_drive_map[DRIVE_MAP_SIZE + 1];
    inside other functions.  */
 static int configfile_func (char *arg, int flags);
 
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现命令处理的初始化。初始化kernel_type，bootdev，以及mb_cmdline等全局
+* 变量。
+*/
+
 /* Initialize the data for builtins.  */
 void
 init_builtins (void)
@@ -91,6 +154,22 @@ init_builtins (void)
   bootdev = set_bootdev (0);
   mb_cmdline = (char *) MB_CMDLINE_BUF;
 }
+
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现配置文件处理的初始化。初始化default_entry，password，
+* fallback_entryno，fallback_entries，以及grub_timeout等全局变量。
+*/
 
 /* Initialize the data for the configuration file.  */
 void
@@ -102,6 +181,24 @@ init_config (void)
   fallback_entries[0] = -1;
   grub_timeout = -1;
 }
+
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现密码匹配性检查功能。参数entered为用户输入字符串；参数expected为预期
+* 的密码字符串；参数type为密码类型(PASSWORD_PLAIN或者PASSWORD_MD5)。如果密码类型
+* 为PASSWORD_PLAIN，则使用strcmp比较；如果密码类型为PASSWORD_MD5，则调用宏函数
+* check_md5_password()比较。
+*/
 
 /* Check a password for correctness.  Returns 0 if password was
    correct, and a value != 0 for error, similarly to strcmp. */
@@ -122,6 +219,20 @@ check_password (char *entered, char* expected, password_t type)
       return 1;
     }
 }
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现打印输出参数sector，offset，length的功能。用于加载文件时调试打印。
+*/
 
 /* Print which sector is read when loading a file.  */
 static void
@@ -130,7 +241,28 @@ disk_read_print_func (int sector, int offset, int length)
   grub_printf ("[%d,%d,%d]", sector, offset, length);
 }
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现blocklist命令的处理函数。显示一个文件占用的block list信息。显示格式
+* 类似[offset]+length[,[offset]+length].... ，例如:
+* 
+* 0+100,200+1,300+300
+*
+* 这一格式也可用于指定一个不存在于文件系统的文件(例如chainloader)。
+*
+* 该函数是用auto函数disk_read_blocklist_func()作为disk_read_hook,在read进入一个文
+* 件的过程中回调disk_read_blocklist_func()实现的。
+*/
 /* blocklist */
 static int
 blocklist_func (char *arg, int flags)
@@ -233,6 +365,32 @@ static struct builtin builtin_blocklist =
   "Print the blocklist notation of the file FILE."
 };
 
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现boot命令处理功能。根据之前检查出来的kernel_type，分别调用不同的处理
+* 函数。kernel_type支持KERNEL_TYPE_FREEBSD/KERNEL_TYPE_NETBSD(调用bsd_boot()函数)；
+* KERNEL_TYPE_LINUX(调用linux_boot()函数)；KERNEL_TYPE_BIG_LINUX(调用
+* big_linux_boot()函数)；KERNEL_TYPE_CHAINLOADER(调用chain_stage1()函数)；以及
+* KERNEL_TYPE_MULTIBOOT(调用multi_boot()函数)。
+*
+* 实现boot 指令的函数是在builtins.c 文件中的boot_func (char *arg, int flags)函数。
+* 如果被载入的核心类型不是未知的，那么调用unset_int15_handler()函数，清除int15 
+* handler。接着根据grub支持的不同的操作系统调用相应的启动程序。当启动的内核为BSD
+* 时调用bsd_boot ()函数，当启动的内核为LINUX 时调用的函数时linux_boot()函数，当
+* 启动方式是链式启动方式时，调用chain_stage1()函数， 当启动方式是多重启动时，调
+* 用multi_boot()函数。这个函数主要的作用是，根据不同的核心类型调用相应的启动函数。
+*/
+
 /* boot */
 static int
 boot_func (char *arg, int flags)
@@ -318,7 +476,22 @@ static struct builtin builtin_boot =
   "Boot the OS/chain-loader which has been loaded."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现bootp命令处理功能。该函数值有在SUPPORT_NETBOOT被定义时出现。先调用
+* bootp()函数获取ip地址以及其他网络信息；之后调用print_network_configuration()
+* 打印网络连接信息；如果第一个参数为"--with-configfile"，则会尝试重新加载配置文件。
+*/
 #ifdef SUPPORT_NETBOOT
 /* bootp */
 static int
@@ -364,7 +537,20 @@ static struct builtin builtin_bootp =
 };
 #endif /* SUPPORT_NETBOOT */
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现cat命令处理功能。显示指定文件的内容。
+*/
 /* cat */
 static int
 cat_func (char *arg, int flags)
@@ -397,7 +583,26 @@ static struct builtin builtin_cat =
   "Print the contents of the file FILE."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现chainloader命令处理功能。加载扇区链式加载器。若使用了--force参数, 
+* 则忽略该扇区的启动标识的有效性。实际上是将指定的文件读入到BOOTSEC_LOCATION处，
+* 也就是RAW_ADDR (0x7C00)处，如果没有--force参数，则检查是否有启动标示。之后将
+* kernel_type设置为KERNEL_TYPE_CHAINLOADER。如果是Windows的chainloader,那么检查
+* 读入的文件的BOOTSEC_BPB_SYSTEM_ID处是否为"MSWIN"开始的，如果是，那么就将读入
+* 文件的BOOTSEC_BPB_HIDDEN_SECTORS处的值设置为part_start的值（当前分区的起始扇
+* 区地址）。
+*/
 /* chainloader */
 static int
 chainloader_func (char *arg, int flags)
@@ -470,7 +675,20 @@ static struct builtin builtin_chainloader =
   " forcibly, whether the boot loader signature is present or not."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现cmp命令处理功能。比较两个文件, 并且报告两者之间的不同的信息。
+*/
 /* This function could be used to debug new filesystem code. Put a file
    in the new filesystem and the same file in a well-tested filesystem.
    Then, run "cmp" with the files. If no output is obtained, probably
@@ -559,7 +777,30 @@ static struct builtin builtin_cmp =
   " if any."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现color命令处理功能。
+*
+* 用法: color NORMAL [HIGHLIGHT]
+*
+* 改变菜单的颜色。NORMAL 用于指定菜单项的未选中时的颜色，HIGHLIGHT 则用于指定菜
+* 单项的被选中时的颜色。如果你未指定 HIGHLIGHT 色，那么我们将使用 NORMAL 的反色
+* 值。颜色值的格式是 "FG/BG"。FG 和 BG 是颜色的名称，如下：black(黑), blue(蓝), 
+* green(绿), cyan(青), red(红), magenta(粉红), brown(棕), light-gray(亮灰),
+* dark-gray(暗灰), light-blue(浅蓝), light-green(淡绿), light-cyan(淡青),
+* light-red(明红), light-magenta(浅红), yellow(黄) 和 white(白)。注意，BG 的值
+* 只能是前八个。另外，若想使用闪烁的前景色，在 FG 前使用前缀 "blink-" 即可。
+*/
 /* color */
 /* Set new colors used for the menu interface. Support two methods to
    specify a color name: a direct integer representation and a symbolic
@@ -691,7 +932,25 @@ static struct builtin builtin_color =
   " \"blink-\" to FG if you want a blinking foreground color."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现configfile命令处理功能。
+*
+* 用法: configfile FILE
+*
+* 将指定文件作为配置文件予以加载。将命令参数FILE拷贝到config_file中，然后使用
+* grub_longjmp (restart_env, 0)跳转回cmain()函数。
+*/
 /* configfile */
 static int
 configfile_func (char *arg, int flags)
@@ -732,7 +991,20 @@ static struct builtin builtin_configfile =
   "Load FILE as the configuration file."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现debug命令处理功能。打开/关闭除错模式。在0和1之间切换debug变量。
+*/
 /* debug */
 static int
 debug_func (char *arg, int flags)
@@ -760,7 +1032,21 @@ static struct builtin builtin_debug =
   "Turn on/off the debug mode."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现default命令处理功能。把参数 NUM 项菜单设为缺省值。如果参数为"saved"，
+* 则将default_entry设为saved_entryno。
+*/
 /* default */
 static int
 default_func (char *arg, int flags)
@@ -791,7 +1077,21 @@ static struct builtin builtin_default =
 #endif
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现device命令处理功能。声明BIOS驱动器对应的实际物理设备。这条命令只用
+* 于grub shell。
+*/
 #ifdef GRUB_UTIL
 /* device */
 static int
@@ -832,7 +1132,21 @@ static struct builtin builtin_device =
 };
 #endif /* GRUB_UTIL */
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现dhcp命令处理功能。通过DHCP初试化网络设备。实际是调用bootp_func()实现，
+* 因此该命令是bootp的别名。
+*/
 #ifdef SUPPORT_NETBOOT
 /* dhcp */
 static int
@@ -852,7 +1166,21 @@ static struct builtin builtin_dhcp =
 };
 #endif /* SUPPORT_NETBOOT */
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现displayapm命令处理功能。显示 APM BIOS 的相关信息。实际是测试标志
+* (mbi.flags & MB_INFO_APM_TABLE),并打印输出apm_bios_info结构体元素实现。
+*/
 /* displayapm */
 static int
 displayapm_func (char *arg, int flags)
@@ -894,7 +1222,21 @@ static struct builtin builtin_displayapm =
   "Display APM BIOS information."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现displaymem命令处理功能。显示 GRUB 所判断到的当前系统的内存分布，
+* 包括所有物理内存区域。
+*/
 /* displaymem */
 static int
 displaymem_func (char *arg, int flags)
@@ -949,7 +1291,21 @@ static struct builtin builtin_displaymem =
   " machine is, including all regions of physical RAM installed."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现dump命令处理功能。DUMP文件的内容。注意，FROM 所指定的必须是一个 
+* GRUB 文件，TO 所指定的必须是一个 OS 文件。该命令只在grub shell中存在。
+*/
 /* dump FROM TO */
 #ifdef GRUB_UTIL
 static int
@@ -1009,8 +1365,23 @@ static struct builtin builtin_dump =
   };
 #endif /* GRUB_UTIL */
 
-
 static char embed_info[32];
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现embed命令处理功能。如果设备是个驱动器, 则将Stage 1.5嵌入到主引导扇区
+* (MBR)之后。如果是个FFS分区, 则可嵌入到该设备的`bootloader'区中。并输出 Stage 
+* 1.5所占的扇区数。
+*/
 /* embed */
 /* Embed a Stage 1.5 in the first cylinder after MBR or in the
    bootloader block in a FFS.  */
@@ -1144,7 +1515,21 @@ static struct builtin builtin_embed =
   " Print the number of sectors which STAGE1_5 occupies if successful."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现fallback命令处理功能。如果调用当前的菜单项时出现错误，则转移到 NUM 
+* 项后重试。
+*/
 /* fallback */
 static int
 fallback_func (char *arg, int flags)
@@ -1196,7 +1581,20 @@ static struct builtin builtin_fallback =
 #endif
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现find命令处理功能。在所有分区上查找文件名, 并显示包含该文件的设备。
+*/
 /* find */
 /* Search for the filename ARG in all of partitions.  */
 static int
@@ -1302,7 +1700,21 @@ static struct builtin builtin_find =
   " the devices which contain the file."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现fstest命令处理功能。切换文件系统的disk_read_hook为disk_read_print_func
+* 或者NULL。
+*/
 /* fstest */
 static int
 fstest_func (char *arg, int flags)
@@ -1330,7 +1742,21 @@ static struct builtin builtin_fstest =
   "Toggle filesystem test mode."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现geometry命令处理功能。输出磁盘的相关信息。在grub shell中, 可以用这
+* 条命令设置磁盘驱动器参数为任意值。如果省略了总扇区数, 则该值缺省由其它参数决定。
+*/
 /* geometry */
 static int
 geometry_func (char *arg, int flags)
@@ -1428,7 +1854,21 @@ static struct builtin builtin_geometry =
   " on the C/H/S values automatically."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现halt命令处理功能。关闭系统。如果APM(高级电源管理)功能存在，将使用 
+* APM BIOS 关闭系统，除非指定了 `--no-apm' 选项。
+*/
 /* halt */
 static int
 halt_func (char *arg, int flags)
@@ -1452,7 +1892,21 @@ static struct builtin builtin_halt =
   " the APM BIOS, unless you specify the option `--no-apm'."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现help命令处理功能。显示内部命令的帮助信息。要查看所有命令的帮助，可
+* 使用 `--all' 参数。
+*/
 /* help */
 #define MAX_SHORT_DOC_LEN	39
 #define MAX_LONG_DOC_LEN	66
@@ -1580,7 +2034,20 @@ static struct builtin builtin_help =
   " aren't shown without the option `--all'."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现hiddenmenu命令处理功能。隐藏菜单。将show_menu设置为0。
+*/
 /* hiddenmenu */
 static int
 hiddenmenu_func (char *arg, int flags)
@@ -1600,7 +2067,20 @@ static struct builtin builtin_hiddenmenu =
 #endif
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现hide命令处理功能。通过在分区类型上置隐藏标志，隐藏指定分区。
+*/
 /* hide */
 static int
 hide_func (char *arg, int flags)
@@ -1624,7 +2104,21 @@ static struct builtin builtin_hide =
   " its partition type code."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现ifconfig命令处理功能。指定 IP 地址, 子网掩码, 网关和服务器地址。
+* 不带参数时，将显示当前的网络配置。
+*/
 #ifdef SUPPORT_NETBOOT
 /* ifconfig */
 static int
@@ -1679,7 +2173,21 @@ static struct builtin builtin_ifconfig =
 };
 #endif /* SUPPORT_NETBOOT */
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现impsprobe命令处理功能。探测Intel Multiprocessor Specification 1.1 
+* 或者 1.4的配置表，并在一个循环中启动这些找到的CPU。
+*/
 /* impsprobe */
 static int
 impsprobe_func (char *arg, int flags)
@@ -1707,7 +2215,20 @@ static struct builtin builtin_impsprobe =
   " a tight loop."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现initrd命令处理功能。加载Linux格式的初始化虚拟盘, 并设置必要的参数。
+*/
 /* initrd */
 static int
 initrd_func (char *arg, int flags)
@@ -1738,7 +2259,27 @@ static struct builtin builtin_initrd =
   " appropriate parameters in the Linux setup area in memory."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现install命令处理功能。
+*
+* 安装STAGE1到指定设备上,安装加载STAGE2需要的块列表到STAGE2上。如果使用了选项'd', 
+* STAGE1总是试图使用安装STAGE2的驱动器, 而不是启动盘。STAGE2将加载在指定地址上, 
+* 如果未声明地址, 则自动检测。如果使用了选项 'p' 或给出了配置文件, 将修改STAGE2
+* 的第一个数据块, 修正实际Stage2启动时使用的配置文件位置。对于Stage 1.5, 该值为
+* Stage 2的路径。如果安装的是Stage 1.5, 且指定了实际配置文件, 则将该配置文件路径
+* 写入Stage2中。
+*/
 /* install */
 static int
 install_func (char *arg, int flags)
@@ -2280,7 +2821,20 @@ static struct builtin builtin_install =
   " 2 via your OS's filesystem instead of the raw device."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+* 
+* 本函数实现ioprobe命令处理功能。侦测指定设备的 I/O 端口号。
+*/
 /* ioprobe */
 static int
 ioprobe_func (char *arg, int flags)
@@ -2323,7 +2877,35 @@ static struct builtin builtin_ioprobe =
   "Probe I/O ports used for the drive DRIVE."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现kernel命令处理功能。
+*
+* 用法: kernel [--no-mem-option] [--type=TYPE] FILE [ARG ...]
+* 
+* 尝试载入主引导映像文件。其它项将被作为内核的命令行参数而传递给内核。使用此命
+* 令以前，内核所用到的模块应该被重新载入。参数 --type 用于说明内核的类型，包括 
+* "netbsd", "freebsd", "openbsd", "linux", "biglinux" 和 "multiboot"。参数 
+* --no-mem-option 用于说明不必自动传递 Linux 的内存参数。
+*
+* 实现kernel 指令的函数是在builtins.c 文件中kernel_func (char *arg, int flags)
+* 函数。在这个函数中，首先进入一个循环，对传进来的参数进行解析。如果“--type=TYPE”
+* 参数被设置了，根据传入的参数设置suggested_type 变量赋予不用的操作系统的值。当
+* 没有别的参数被设置以后，则跳出循环。然后从参数中获得内核的文件路径，赋值给
+* mb_cmdline 变量，然后通过load_image()函数载入核心，并且返回核心的类型。如果返
+* 回的核心类型是grub 不支持得类型，即kernel_type == KERNEL_TYPE_NONE 返回1，成功
+* 则返回0。这个函数主要的作用是，载入操作系统的核心。
+*/
 /* kernel */
 static int
 kernel_func (char *arg, int flags)
@@ -2412,7 +2994,24 @@ static struct builtin builtin_kernel =
   " Linux's mem option automatically."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现lock命令处理功能。
+*
+* 用法: lock
+* 
+* 如果用户未被认证，则终止命令的执行。
+*/
 /* lock */
 static int
 lock_func (char *arg, int flags)
@@ -2435,7 +3034,24 @@ static struct builtin builtin_lock =
   "Break a command execution unless the user is authenticated."
 };
   
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现makeactive命令处理功能。
+*
+* 用法: makeactive
+* 
+* 将 root 设备置为活动分区。此命令只对 PC 的硬盘主分区有效。
+*/
 /* makeactive */
 static int
 makeactive_func (char *arg, int flags)
@@ -2456,7 +3072,26 @@ static struct builtin builtin_makeactive =
   " This command is limited to _primary_ PC partitions on a hard disk."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现map命令处理功能。
+*
+* 用法: map TO_DRIVE FROM_DRIVE
+* 
+* 对设备进行映射。这对于扇区链式引导是很有用的功能，比如 DOS。这里，目的驱动器 
+* (TO_DRIVE)可以是一个磁盘文件，即使用磁盘虚拟功能。注意，这要求磁盘文件是连续
+* 存放于分区中的。
+*/
 /* map */
 /* Map FROM_DRIVE to TO_DRIVE.  */
 static int
@@ -2520,7 +3155,24 @@ static struct builtin builtin_map =
   " OS resides at a non-first drive."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现md5crypt命令处理功能。
+*
+* 用法: md5crypt
+* 
+* 产生一个 MD5 格式的密码。
+*/
 #ifdef USE_MD5_PASSWORDS
 /* md5crypt */
 static int
@@ -2579,7 +3231,25 @@ static struct builtin builtin_md5crypt =
 };
 #endif /* USE_MD5_PASSWORDS */
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现module命令处理功能。
+*
+* 用法: module FILE [ARG ...]
+* 
+* 对多重启动映像, 加载启动模块文件 (不处理该文件的内容, 用户必须自己确定内核的
+* 要求)。剩余参数作为`模快命令行`传递, 象`kernel'命令一样。
+*/
 /* module */
 static int
 module_func (char *arg, int flags)
@@ -2627,7 +3297,24 @@ static struct builtin builtin_module =
   " the `kernel' command."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现modulenounzip命令处理功能。
+*
+* 用法: modulenounzip FILE [ARG ...]
+* 
+* 与 'module' 类似, 但是自动禁用了解压缩。
+*/
 /* modulenounzip */
 static int
 modulenounzip_func (char *arg, int flags)
@@ -2657,7 +3344,25 @@ static struct builtin builtin_modulenounzip =
   " disabled."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现pager [on|off] 命令处理功能。
+*
+* 用法: pager [FLAG]
+* 
+* 没有参数时，切换页模式。如果使用了 FLAG 参数，那么它为`on' 时为开启, 为 `off' 
+* 时为关闭。
+*/
 /* pager [on|off] */
 static int
 pager_func (char *arg, int flags)
@@ -2689,7 +3394,24 @@ static struct builtin builtin_pager =
   " is `on', turn on the mode. If FLAG is `off', turn off the mode."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现partnew命令处理功能。
+*
+* 用法: partnew PART TYPE START LEN
+* 
+* 创建一个新的主分区。START 为起始扇区号，LEN 为其包含的扇区数，TYPE 为其分区类型。
+*/
 /* partnew PART TYPE START LEN */
 static int
 partnew_func (char *arg, int flags)
@@ -2808,7 +3530,24 @@ static struct builtin builtin_partnew =
   " length LEN, with the type TYPE. START and LEN are in sector units."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现parttype命令处理功能。
+*
+* 用法: parttype PART TYPE
+* 
+* 改变指定分区(PART)的分区类型(TYPE)。
+*/
 /* parttype PART TYPE */
 static int
 parttype_func (char *arg, int flags)
@@ -2885,7 +3624,28 @@ static struct builtin builtin_parttype =
   "Change the type of the partition PART to TYPE."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现password命令处理功能。
+*
+* 用法: password [--md5] PASSWD [FILE]
+* 
+* 设置密码。当其处于菜单文件的首项时，将禁用所有的交互式菜单编辑功能，包括编辑
+* 菜单项(`e`)/进入命令行(`c`)。当正确输入密码 (由PASSWD指定)后，载入新的菜单
+* 文件(由FILE指定)。如果你没有指定 FILE 项，那么上述被禁用的功能将被启用。
+* 当然，也可以将此命令用到某个菜单项里，用以提高系统安全性。参数 --md5 说明
+* 密码(PASSWD)是使用md5crypt 加密的。
+*/
 /* password */
 static int
 password_func (char *arg, int flags)
@@ -2959,7 +3719,24 @@ static struct builtin builtin_password =
   " md5crypt."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现pause命令处理功能。
+*
+* 用法: pause [MESSAGE ...]
+* 
+* 终止命令的运行，并给出一段信息。任意键按下后，将继续。
+*/
 /* pause */
 static int
 pause_func (char *arg, int flags)
@@ -2982,7 +3759,24 @@ static struct builtin builtin_pause =
   "Print MESSAGE, then wait until a key is pressed."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现quit命令处理功能。
+*
+* 用法: quit
+* 
+* 从 GRUB shell中退出。
+*/
 #ifdef GRUB_UTIL
 /* quit */
 static int
@@ -3004,7 +3798,24 @@ static struct builtin builtin_quit =
 };
 #endif /* GRUB_UTIL */
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现rarp命令处理功能。
+*
+* 用法: rarp
+* 
+* 用 RARP 初始化网络设备。
+*/
 #ifdef SUPPORT_NETBOOT
 /* rarp */
 static int
@@ -3033,7 +3844,24 @@ static struct builtin builtin_rarp =
 };
 #endif /* SUPPORT_NETBOOT */
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现read命令处理功能。
+*
+* 用法: read ADDR
+* 
+* 从内存的指定位置读取一个 32-bit 的值，并以十六进制形式显示出来。
+*/
 static int
 read_func (char *arg, int flags)
 {
@@ -3057,7 +3885,24 @@ static struct builtin builtin_read =
   " display it in hex format."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现reboot命令处理功能。
+*
+* 用法: reboot
+* 
+* 重启系统。
+*/
 /* reboot */
 static int
 reboot_func (char *arg, int flags)
@@ -3077,7 +3922,20 @@ static struct builtin builtin_reboot =
   "Reboot your system."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现打印根设备的信息的功能。
+*/
 /* Print the root device information.  */
 static void
 print_root_device (void)
@@ -3112,6 +3970,20 @@ print_root_device (void)
   print_fsys_type ();
 }
 
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现设置实际根设备命令处理功能。
+*/
 static int
 real_root_func (char *arg, int attempt_mount)
 {
@@ -3170,7 +4042,37 @@ real_root_func (char *arg, int attempt_mount)
   
   return 0;
 }
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现root命令处理功能。
+*
+* 用法: root [DEVICE [HDBIAS]]
+* 
+* 设置根分区。设置根分区为指定设备(DEVICE), 然后尝试挂接该分区以得到分区大小
+* (用于在ES:ESI中传递, 扇区链式启动方式要求这样)。BSD 驱动类型用于启动 BSD 的
+* 核心启动), 和确定 BSD 子分区所在的 PC 分区。可选的磁盘偏移参数, 用于 BSD 核
+* 心确定有多少个控制器在当前控制器前。比如: 假设同时有一个IDE和SCSI盘, 而BSD根
+* 分区在 SCSI盘上, 那么磁盘偏移就为1。
+*
+* 实现root 指令的函数是在builtins.c 中的root_func (char *arg, int flags)函数。
+* 第一个参数指定了哪个磁盘驱动器，如hd0 是指第一块硬盘。第二个参数是分区号。
+* 然后在root_func()中它有调用了real_root_func (char *arg, int attempt_mount) 
+* 这个函数， 并把参数arg 传入real_root_func 中并把attempt_mount 设置为1。如果
+* 传入的arg 是空的，那么就直接使用默认的驱动器。然后调用set_device()函数，从
+* 字符串中提取出驱动器号和分区号。测试如果所填写的驱动器号以及分区号读写没有
+* 问题，那么就在变量saved_partition 和saved_drive中保存读取的这两个数据。然后
+* 返回。这个函数主要的作用是为GRUB 指定一个根分区。
+*/
 static int
 root_func (char *arg, int flags)
 {
@@ -3195,7 +4097,26 @@ static struct builtin builtin_root =
   " FreeBSD root partition is on the SCSI disk, then use a `1' for HDBIAS."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现rootnoverify命令处理功能。
+*
+* 用法: rootnoverify [DEVICE [HDBIAS]]
+* 
+* 类似`root'指令, 但不测试安装该分区。这用于有些系统装在 GRUB 能访问的磁盘区
+* 之外, 但仍需要设置正确的根分区的情况。有些需要安装分区才能确定的参数可能会
+* 有问题。
+*/
 /* rootnoverify */
 static int
 rootnoverify_func (char *arg, int flags)
@@ -3216,7 +4137,25 @@ static struct builtin builtin_rootnoverify =
   " derived from attempting the mount will NOT work correctly."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现savedefault命令处理功能。
+*
+* 用法: savedefault [NUM | `fallback']
+* 
+* 如果没指定参数，就将当前项设置为默认的引导项。如果指定了参数NUM，则将NUM项设置
+* 为默认引导项；如果指定了参数fallback，则下一个fallback项被使用。
+*/
 /* savedefault */
 static int
 savedefault_func (char *arg, int flags)
@@ -3374,7 +4313,27 @@ static struct builtin builtin_savedefault =
   " `fallback' is used, next fallback entry is saved."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现serial命令处理功能。
+*
+* 用法: serial [--unit=UNIT] [--port=PORT] [--speed=SPEED] [--word=WORD] [--parity=PARITY] [--stop=STOP] [--device=DEV]
+* 
+* 初始化一个串口设备。UNIT 用于指定要使用的串口设备 (如，0 == COM1); PORT 用于
+* 指定端口号; SPEED 用于指定通讯的数率; WORD 为字长; PARITY 为奇偶类型(取 `no', 
+* `odd' 和 `even' 之一的值。); STOP 是停止位的长度值; 选项 --device 仅用于命令
+* 行模式，用以指定 tty 设备的文件名。默认值是这样的，COM1, 9600, 8N1。
+*/
 #ifdef SUPPORT_SERIAL
 /* serial */
 static int
@@ -3611,6 +4570,31 @@ static struct keysym keysym_table[] =
   /* Caution: do not add NumLock here! we cannot deal with it properly.  */
   {"delete",		0,		0x7f,	0,	0x53}
 };
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现setkey命令处理功能。
+*
+* 用法: setkey [TO_KEY FROM_KEY]
+* 
+* 改变键盘映射关系。把FROM_KEY映射为TO_KEY。这里的键必须是字母, 数字, 和以下特
+* 殊键: escape(转义), exclam(!), at(@), numbersign(#), dollar($), parenright ()) , 
+* caret(^), ampersand(&), asterisk(*), plus(+), percent(%), minus(-), underscore(_), 
+* equal(=), parenleft[(], backspace(退格), tab(制表), bracketleft([), braceleft({), 
+* bracketright(]), braceright(}), enter(回车), control(控制), semicolon(;), colon(, 
+* quote('), doublequote("), slash(/), backquote(`), tilde(~), shift(换档), 
+* backslash(\), bar(|), comma(,), less(<), period(.), greater(>), question(?), 
+* alt(交互), space(空格), capslock(大写), Fx(功能键) 和 delete(删除)。
+*/
 
 static int
 setkey_func (char *arg, int flags)
@@ -3774,7 +4758,28 @@ static struct builtin builtin_setkey =
   " mappings."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现setup命令处理功能。
+*
+* 用法: setup [--prefix=DIR] [--stage2=STAGE2_FILE] [--force-lba] INSTALL_DEVICE [IMAGE_DEVICE]
+* 
+* 自动安装GRUB. 这条命令使用更灵活的install命令将GRUB安装到指定设备上。如果给出
+* 了映象设备,将在该设备寻找GRUB,否则使用缺省的根设备。根设备可用 root指令指定。
+* 如果你确认系统的 BIOS 应该支持 LBA 模式, 但是 GRUB 却没有工作于该模式, 则请
+* 指定 `--force-lba' 参数。如若在命令行中已安装了一次 GRUB 可是，却无法卸
+* 载 GRUB 程序所在的分区，请指定 `--stage2' 参数。
+*/
 /* setup */
 static int
 setup_func (char *arg, int flags)
@@ -4084,7 +5089,30 @@ static struct builtin builtin_setup =
   " to tell GRUB the file name under your OS."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现terminal命令处理功能。
+*
+* 用法: terminal [--dumb] [--no-echo] [--no-edit] [--timeout=SECS] [--lines=LINES] [--silent] [console] [serial] [hercules] [graphics]
+* 
+* 选择一个终端。当指定了多个终端以后, 按任意键方可继续操作。如果控制台和串口都
+* 被指定了, 那么你首先在其中按下键盘的终端将被首先选中。如果没有指定任何参数, 
+* 那么此命令将显示出当前的终端设置; 参数 --dumb 用以指定一个哑终端, 否则即为 
+* vt100 兼容型; 若使用了 --no-echo 参数, 屏幕上将不会回显输入的字符; 若使用了 
+* --no-edit 参数, BASH-like 的编辑功能将被禁用; 若使用了 --timeout 参数, 该命
+* 令将等待数秒钟(由SECS指定); 可使用 --lines 指定最大的行数; 可使用 --silent 
+* 选项关闭消息显示。
+*/
 #if defined(SUPPORT_SERIAL) || defined(SUPPORT_HERCULES)
 /* terminal */
 static int
@@ -4278,7 +5306,25 @@ static struct builtin builtin_terminal =
 };
 #endif /* SUPPORT_SERIAL || SUPPORT_HERCULES */
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现terminfo命令处理功能。
+*
+* 用法: terminfo [--name=NAME --cursor-address=SEQ [--clear-screen=SEQ] [--enter-standout-mode=SEQ] [--exit-standout-mode=SEQ]]
+* 
+* 指定终端的功能。如果此终端为 vt100 兼容型的，则可指定换码顺序 (即使用 \e 代表 
+* ESC, ^X 代表控制码); 在未给任何参数的情况下，将给出当前配置信息。
+*/
 #ifdef SUPPORT_SERIAL
 static int
 terminfo_func (char *arg, int flags)
@@ -4374,7 +5420,26 @@ static struct builtin builtin_terminfo =
 };
 #endif /* SUPPORT_SERIAL */
 	  
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现testload命令处理功能。
+*
+* 用法: testload FILE
+* 
+* 以多种不同的方式读取文件(由FILE指定)的整个内容，并予以比较，以测试文件系统的
+* 代码。输出看起来会有点儿混乱，但是，如果没有错误的话，最后的`i=X, filepos=Y' 
+* 里的 X 和 Y 最后必得相等。如果测试即告成功，下一步即可试图载入内核了。
+*/
 /* testload */
 static int
 testload_func (char *arg, int flags)
@@ -4462,7 +5527,24 @@ static struct builtin builtin_testload =
   " step is to try loading a kernel."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现testvbe命令处理功能。
+*
+* 用法: testvbe MODE
+* 
+* 测试所指定(MODE)的 VBE 模式。
+*/
 /* testvbe MODE */
 static int
 testvbe_func (char *arg, int flags)
@@ -4567,7 +5649,24 @@ static struct builtin builtin_testvbe =
   "Test the VBE mode MODE. Hit any key to return."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现tftpserver命令处理功能。
+*
+* 用法: tftpserver IPADDR
+* 
+* 指定 TFTP 服务器的 IP 地址。
+*/
 #ifdef SUPPORT_NETBOOT
 /* tftpserver */
 static int
@@ -4593,7 +5692,24 @@ static struct builtin builtin_tftpserver =
 };
 #endif /* SUPPORT_NETBOOT */
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现timeout命令处理功能。
+*
+* 用法: timeout SEC
+* 
+* 设置在自动启动缺省菜单前所等待的秒数。
+*/
 /* timeout */
 static int
 timeout_func (char *arg, int flags)
@@ -4616,7 +5732,24 @@ static struct builtin builtin_timeout =
 #endif
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现title命令处理功能。
+*
+* 用法: title [NAME ...]
+* 
+* 命名菜单项。
+*/
 /* title */
 static int
 title_func (char *arg, int flags)
@@ -4637,7 +5770,24 @@ static struct builtin builtin_title =
 #endif
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现unhide命令处理功能。
+*
+* 用法: unhide PARTITION
+* 
+* 通过清除隐藏标志，解除指定分区(PARTITION)的隐藏。
+*/
 /* unhide */
 static int
 unhide_func (char *arg, int flags)
@@ -4661,7 +5811,24 @@ static struct builtin builtin_unhide =
   " partition type code."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现uppermem命令处理功能。
+*
+* 用法: uppermem KBYTES
+* 
+* 强制指定仅有(KBYTES) KB 的上位内存。任何系统的地址变换将被取消。
+*/
 /* uppermem */
 static int
 uppermem_func (char *arg, int flags)
@@ -4683,7 +5850,24 @@ static struct builtin builtin_uppermem =
   " installed.  Any system address range maps are discarded."
 };
 
-
+/**
+* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+*（课题编号：2012ZX01039-004）”的资助。
+*
+* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+*
+* @author 注释添加人员：谢文学
+*
+* @date 注释添加日期：2013年5月3日
+*
+* @details 注释详细内容:
+*
+* 本函数实现vbeprobe命令处理功能。
+*
+* 用法: vbeprobe [MODE]
+* 
+* 侦测 VBE 的信息。如果指定了一个模式(MODE 不为空)，则仅显示其信息。
+*/
 /* vbeprobe */
 static int
 vbeprobe_func (char *arg, int flags)
