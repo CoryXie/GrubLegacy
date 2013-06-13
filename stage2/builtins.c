@@ -5975,7 +5975,40 @@ static struct builtin builtin_vbeprobe =
   " the information about only the mode."
 };
   
-
+grub_jmp_buf restart_demo_env;
+int global_loop = 0;
+
+/* demo function */
+static int
+demo_func (char *arg, int flags)
+{
+  int internal_loop = 0;
+  global_loop = 0;
+	
+  grub_setjmp (restart_demo_env);
+	
+  grub_printf("Hello internal_loop %d global_loop %d\n", 
+  					 internal_loop, global_loop);  					 
+  grub_printf("Hello, you have input :%s\n", arg);
+  
+  global_loop++;  
+  internal_loop++;
+  
+  if (global_loop < 5)
+  	grub_longjmp (restart_demo_env, 0);
+  
+  return 0;
+}
+
+static struct builtin builtin_demo =
+{
+  "demo",
+  demo_func,
+  BUILTIN_CMDLINE | BUILTIN_HELP_LIST,
+  "demo command with a short message",
+  "Show a message from the user input, to demonstrate how to add a basic grub command!"
+};
+
 /* The table of builtin commands. Sorted in dictionary order.  */
 struct builtin *builtin_table[] =
 {
@@ -5991,6 +6024,7 @@ struct builtin *builtin_table[] =
   &builtin_configfile,
   &builtin_debug,
   &builtin_default,
+  &builtin_demo,
 #ifdef GRUB_UTIL
   &builtin_device,
 #endif /* GRUB_UTIL */
