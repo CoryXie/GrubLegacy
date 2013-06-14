@@ -40,16 +40,16 @@ unsigned long saved_mem_upper;
 unsigned long extended_memory;
 #endif
 /**
-* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
-* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+* @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
 *
 * @author 注释添加人员：谢文学
 *
 * @date 注释添加日期：2013年5月3日
 *
-* @details 注释详细内容: GRUB 0.97报错信息说明
+* @note 注释详细内容: GRUB 0.97报错信息说明
 * 
 * GRUB 0.97 Stage 1 处理错误的总体方式是打出一串错误信息并停止。这时按 <CTRL>-<ALT>-<DEL> 
 * 可以重启。
@@ -305,16 +305,16 @@ static struct AddrRangeDesc fakemap[3] =
   {20, 0x1000000, 0, MB_ARD_MEMORY}
 };
 /**
-* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
-* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+* @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
 *
 * @author 注释添加人员：谢文学
 *
 * @date 注释添加日期：2013年5月10日
 *
-* @details 注释详细内容:
+* @note 注释详细内容:
 * 
 * 本函数实现查找从参数bottom开始到最高可用内存的大小的功能。这是通过扫描一个由
 * mbi.mmap_addr和mbi.mmap_length描述的内存映射buffer中每一项，找到这些内存映射
@@ -374,16 +374,16 @@ mmap_avail_at (unsigned long bottom)
 }
 #endif /* ! STAGE1_5 */
 /**
-* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
-* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+* @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
 *
 * @author 注释添加人员：谢文学
 *
 * @date 注释添加日期：2013年5月10日
 *
-* @details 注释详细内容:
+* @note 注释详细内容:
 * 
 * 本函数实现初始化BIOS传递的参数的功能。这里主要初始化了Multiboot要求的如下参数:
 * mbi.mem_lower,mbi.mem_upper,mbi.mmap_addr,mbi.mmap_length,mbi.drives_addr,以及

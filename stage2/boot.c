@@ -30,16 +30,16 @@ entry_func entry_addr;
 static struct mod_list mll[99];
 static int linux_mem_size;
 /**
-* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
-* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+* @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
 *
 * @author 注释添加人员：谢文学
 *
 * @date 注释添加日期：2013年6月6日
 *
-* @details 注释详细内容: Multiboot规范的精确定义 
+* @note 注释详细内容: Multiboot规范的精确定义 
 
 * 来源：http://www.gnu.org/software/grub/manual/multiboot/multiboot.html
 * 
@@ -458,16 +458,16 @@ static int linux_mem_size;
 * 拟VBE模式。
 **/
 /**
-* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
-* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+* @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
 *
 * @author 注释添加人员：谢文学
 *
 * @date 注释添加日期：2013年5月3日
 *
-* @details 注释详细内容:
+* @note 注释详细内容:
 * 
 * 本函数实现读入内核映像功能。参数kernel为要读取的内核文件名；参数arg为内核参数；
 * 参数suggested_type为调用者猜测的内核类型；参数load_flags为加载标志。
@@ -1224,16 +1224,16 @@ load_image (char *kernel, char *arg, kernel_t suggested_type,
 }
 
 /**
-* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
-* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+* @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
 *
 * @author 注释添加人员：谢文学
 *
 * @date 注释添加日期：2013年5月3日
 *
-* @details 注释详细内容:
+* @note 注释详细内容:
 * 
 * 本函数实现读入模块功能。参数module指定要读入的模块文件名；参数arg指定要读入的
 * 模块需要的参数。读入模块放置于cur_addr地址处(并且cur_addr会被更新)。之后根据模
@@ -1278,16 +1278,16 @@ load_module (char *module, char *arg)
 }
 
 /**
-* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
-* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+* @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
 *
 * @author 注释添加人员：谢文学
 *
 * @date 注释添加日期：2013年5月3日
 *
-* @details 注释详细内容:
+* @note 注释详细内容:
 * 
 * 本函数实现读入initrd功能。参数initrd为initrd的文件名。读入的位置为cur_addr。
 * 并且更新Linux Header的ramdisk_image和ramdisk_size字段。返回非0表示成功。
@@ -1363,16 +1363,16 @@ bsd_boot_entry (int flags, int bootdev, int sym_start, int sym_end,
 #endif
 
 /**
-* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
-* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+* @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
 *
 * @author 注释添加人员：谢文学
 *
 * @date 注释添加日期：2013年5月3日
 *
-* @details 注释详细内容:
+* @note 注释详细内容:
 * 
 * 本函数实现BSD启动功能。参数type为内核类型；参数bootdev为启动磁盘号；参数arg为
 * 启动参数。解析arg参数得到clval作为启动标志。如果为KERNEL_TYPE_FREEBSD,则初始化

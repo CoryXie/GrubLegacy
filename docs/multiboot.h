@@ -45,16 +45,16 @@
 
 /* Types.  */
 /**
-* @topic 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
-* @group 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
+* @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
 *
 * @author 注释添加人员：谢文学
 *
 * @date 注释添加日期：2013年6月6日
 *
-* @details 注释详细内容: Multiboot规范的精确定义 
+* @note 注释详细内容: Multiboot规范的精确定义 
 
 * 来源：http://www.gnu.org/software/grub/manual/multiboot/multiboot.html
 * 
