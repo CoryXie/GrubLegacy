@@ -35,7 +35,7 @@ static int herc_current_color = A_NORMAL;
 static color_state herc_color_state = COLOR_STATE_STANDARD;
 static int herc_cursor_state = 1;
 /**
-* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @attention 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
 * @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
@@ -55,7 +55,7 @@ outb (unsigned short port, unsigned char value)
   asm volatile ("outb	%b0, %w1" : : "a" (value), "Nd" (port));
 }
 /**
-* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @attention 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
 * @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
@@ -84,7 +84,7 @@ herc_set_cursor (void)
   outb (0x80, 0);
 }
 /**
-* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @attention 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
 * @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
@@ -151,7 +151,7 @@ hercules_putchar (int c)
     }
 }
 /**
-* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @attention 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
 * @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
@@ -177,7 +177,7 @@ hercules_cls (void)
   herc_set_cursor ();
 }
 /**
-* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @attention 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
 * @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
@@ -196,7 +196,7 @@ hercules_getxy (void)
   return (herc_x << 8) | herc_y;
 }
 /**
-* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @attention 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
 * @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
@@ -217,7 +217,7 @@ hercules_gotoxy (int x, int y)
   herc_set_cursor ();
 }
 /**
-* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @attention 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
 * @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
@@ -251,7 +251,7 @@ hercules_setcolorstate (color_state state)
   herc_color_state = state;
 }
 /**
-* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @attention 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
 * @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
@@ -273,7 +273,7 @@ hercules_setcolor (int normal_color, int highlight_color)
   hercules_setcolorstate (herc_color_state);
 }
 /**
-* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @attention 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
 * @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位

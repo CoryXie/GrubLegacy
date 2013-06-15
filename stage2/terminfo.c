@@ -40,7 +40,7 @@ struct terminfo term =
     .exit_standout_mode  = "\e[m"
   };
 /**
-* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @attention 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
 * @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
@@ -160,7 +160,7 @@ ti_unescape_memory (const char *in, const char *end)
   return out_buffer;
 }
 /**
-* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @attention 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
 * @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
@@ -179,7 +179,7 @@ ti_unescape_string (const char *in)
   return ti_unescape_memory (in, in + grub_strlen (in));
 }
 /**
-* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @attention 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
 * @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
@@ -247,7 +247,7 @@ ti_escape_memory (const char *in, const char *end)
   return out_buffer;
 }
 /**
-* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @attention 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
 * @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
@@ -268,7 +268,7 @@ ti_escape_string (const char *in)
   return ti_escape_memory (in, in + grub_strlen (in));
 }
 /**
-* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @attention 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
 * @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
@@ -288,7 +288,7 @@ ti_cursor_address (int x, int y)
   grub_putstr (grub_tparm (term.cursor_address, y, x));
 }
 /**
-* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @attention 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
 * @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
@@ -308,7 +308,7 @@ ti_clear_screen (void)
   grub_putstr (grub_tparm (term.clear_screen));
 }
 /**
-* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @attention 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
 * @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
@@ -328,7 +328,7 @@ ti_enter_standout_mode (void)
   grub_putstr (grub_tparm (term.enter_standout_mode));
 }
 /**
-* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @attention 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
 * @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
@@ -348,7 +348,7 @@ ti_exit_standout_mode (void)
   grub_putstr (grub_tparm (term.exit_standout_mode));
 }
 /**
-* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @attention 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
 * @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
@@ -368,7 +368,7 @@ ti_set_term (const struct terminfo *new)
   grub_memmove (&term, new, sizeof (struct terminfo));
 }
 /**
-* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @attention 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
 * @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位

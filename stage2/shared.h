@@ -821,7 +821,7 @@ void stop_floppy (void);
 #define BUILTIN_NO_ECHO		0x10	/* Don't print command on booting. */
 #define BUILTIN_HELP_LIST	0x20	/* Show help in listing.  */
 /**
-* @brief 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
+* @attention 本注释得到了"核高基"科技重大专项2012年课题“开源操作系统内核分析和安全性评估
 *（课题编号：2012ZX01039-004）”的资助。
 *
 * @copyright 注释添加单位：清华大学——03任务（Linux内核相关通用基础软件包分析）承担单位
